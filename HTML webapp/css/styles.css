@@ -26,6 +26,7 @@ body {
     font-weight: normal;
     font-style: normal;
     background-color: #f5f5f5;
+    background-image: url('../images/background.png');
     font-size: 16px;
     margin: 0px;
     padding: 0px;
@@ -101,6 +102,27 @@ header#sub ul.breadcrumb {
 
 header#sub ul.breadcrumb a {
     color: #b6bfc8;
+}
+
+header#sub ul.breadcrumb a:hover, header#sub ul.breadcrumb a:focus {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header#sub .searchbar .form-control {
+    border: 0px;
+    background-color: #242b32;
+    color: #b6bfc8;
+    height: 35px;
+    margin: 5px 0px;
+    position: relative;
+    left: 20px;
+}
+
+header#sub .searchbar .fa {
+    color: #ffffff;
+    position: relative;
+    right: 10px;
 }
 
 /* Responsive CSS */
