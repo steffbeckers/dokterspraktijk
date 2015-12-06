@@ -1,0 +1,121 @@
+/* Open Sans Regular */
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../bootstrap/fonts/OpenSans-Regular-webfont.eot');
+    src: url('../bootstrap/fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../bootstrap/fonts/OpenSans-Regular-webfont.woff') format('woff'),
+    url('../bootstrap/fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+    url('../bootstrap/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+    font-weight: normal;
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../bootstrap/fonts/OpenSans-Semibold-webfont.eot');
+    src: url('../bootstrap/fonts/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../bootstrap/fonts/OpenSans-Semibold-webfont.woff') format('woff'),
+    url('../bootstrap/fonts/OpenSans-Semibold-webfont.ttf') format('truetype'),
+    url('../bootstrap/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    background-color: #f5f5f5;
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+}
+
+header#main {
+    background-color: #242b32;
+}
+
+header#main .logo {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+header#main .logo h1 {
+    margin: 0px;
+}
+
+header#main .logo h1 a {
+    color: #fff;
+    font-size: 36px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    cursor: pointer;
+}
+
+header#main .logo h1 a:hover {
+    text-decoration: none;
+    border: 0px;
+}
+
+header#main .nav {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+header#main .nav-pills > li {
+    margin-right: 10px;
+}
+
+header#main .nav-pills > li > a {
+    color: #ffffff;
+}
+
+header#main .nav-pills > li:last-of-type {
+    margin-right: 0px;
+}
+
+header#main .nav-pills > li > a:hover, header#main .nav-pills > li > a:focus {
+    color: #ffffff;
+    background-color: #2c3e50;
+}
+
+header#main .nav-pills > li.active > a{
+    background-color: #37424c;
+}
+
+header#main .nav-pills > li.active > a:hover, header#main .nav-pills > li.active > a:focus {
+    color: #ffffff;
+    background-color: #2c3e50;
+}
+
+header#sub {
+    background-color: #37424c;
+}
+
+header#sub ul.breadcrumb {
+    background-color: #37424c;
+    padding: 15px 0px;
+    margin-bottom: 0px;
+}
+
+header#sub ul.breadcrumb a {
+    color: #b6bfc8;
+}
+
+/* Responsive CSS */
+
+/* Mobile phones */
+@media (max-width: 480px) {
+
+}
+
+/* Tablets */
+@media (max-width: 767px) {
+
+}
+
+/* Desktop */
+@media (max-width: 991px) {
+
+}
