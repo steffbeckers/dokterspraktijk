@@ -99,12 +99,40 @@ header#main .nav-pills .dropdown span.caret {
     margin-left: 10px;
 }
 
+header#main .nav-pills .dropdown-menu {
+    padding: 0px;
+    margin-top: 5px;
+    min-width: 130px;
+}
+
+header#main .nav-pills .dropdown-menu li:first-of-type a {
+    -webkit-border-top-left-radius: 2px;
+    -webkit-border-top-right-radius: 2px;
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-topright: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+header#main .nav-pills .dropdown-menu li:last-of-type a {
+    -webkit-border-bottom-right-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-bottomright: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
 header#main .nav-pills .dropdown-menu li a {
     padding: 10px;
 }
 
 header#main .nav-pills .dropdown-menu .divider {
     margin: 0px;
+}
+
+header#main .nav .open > a, header#main .nav .open>a:hover, header#main .nav .open>a:focus {
+    background-color: #2c3e50;
 }
 
 header#sub {
@@ -133,7 +161,7 @@ header#sub .searchbar .form-control {
     height: 35px;
     margin: 5px 0px;
     position: relative;
-    left: 20px;
+    left: 19px;
 }
 
 header#sub .searchbar .fa {
