@@ -183,9 +183,13 @@ section .panel {
     color: white;
 }
 
-.control-label {
-    font-size: 12px;
+.appointment-form .control-label {
     padding-top: 0px;
+    margin-bottom: 5px;
+}
+
+.appointment-form .form-group:last-of-type {
+    margin-bottom: 0px;
 }
 
 .form-control:focus {
