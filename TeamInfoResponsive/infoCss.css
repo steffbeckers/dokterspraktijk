@@ -10,12 +10,14 @@ body{
 }
 header {
     text-align: center;
-    color: #005F6B;
+    color: white;
     height: 100px;
     padding: 0 15px;
+    background-color: #37424c;
 }
 header h1{
-    padding-top: 10px;
+    padding-top: 30px;
+    padding-bottom: auto;
 }
 .container{
     text-align: center;
@@ -23,6 +25,7 @@ header h1{
     background-color: white;
     width: 80%;
     margin: 20px auto;
+    padding-bottom: 20px;
 }
 .person:first-of-type{
     width: 25%;
@@ -116,6 +119,7 @@ footer {
 		height: auto;
 	}
 	h1 {
+            padding-bottom: 20px;
 		font-size: 2em;
 	}
 	.person, .person:first-of-type, .person:last-of-type{
