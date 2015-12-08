@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}AppBundle:Team:show{% endblock %}
+{% block title %}Meet the team{% endblock %}
 
 {% block body %}
 <!DOCTYPE html>
@@ -17,6 +17,7 @@ and open the template in the editor.
         <link href={{asset("css/infoCss.css")}} rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        {% block header %} {% endblock %}
         <div class="container">
             <header>
                 <h1>Meet the team</h1>
