@@ -3,5 +3,5 @@ app:
     type:     annotation
 homepage:
     path:   /
-    defaults:  { _controller: AppBundle:home:index }
+    defaults:  { _controller: AppBundle:Home:index }
 
