@@ -1,0 +1,152 @@
+/* 
+    Created on : Dec 1, 2015, 9:17:32 AM
+    Author     : Steven
+*/
+*{margin: 0px; padding: 0px;}
+body{
+    font-family: "Open Sans", Arial, sans-serif;
+    background: #f0efef;
+    color: #343838;
+}
+header {
+    text-align: center;
+    color: white;
+    height: 100px;
+    padding: 0 15px;
+    background-color: #37424c;
+}
+header h1{
+    padding-top: 30px;
+    padding-bottom: auto;
+}
+.container{
+    text-align: center;
+    /*padding: 5px;*/
+    background-color: white;
+    width: 80%;
+    margin: 20px auto;
+    padding-bottom: 20px;
+}
+.person:first-of-type{
+    width: 25%;
+    float: left;
+    margin-left: 6.25%;
+    margin-bottom: 8%;
+}
+.person{
+    width: 25%;
+    float: left;
+    margin-left: 6.25%;
+    margin-bottom: 8%;
+}
+.person:last-of-type{
+    width: 25%;
+    margin-left: 6.25%;
+    float: left;
+    margin-bottom: 8%;
+}
+footer {
+	clear: both;
+	padding: 0 15px;
+}
+
+/*Voor schermen kleiner dan 980px*/
+@media screen and (max-width: 980px) {
+	
+	.container {
+		width: 94%;
+	}
+	.person:first-of-type {
+		width: 41%;
+		max-width: 100%;
+		margin: 0px;
+		padding: 1% 4%;
+                margin-bottom: 5%;
+	}
+	.person {
+		width: 41%;
+                max-width: 100%;
+                margin: 0px;
+		padding: 1% 4%;
+		float: right;
+                margin-bottom: 5%;
+	}
+	
+	.person:last-of-type {
+		clear: both;
+		margin: 0px;
+                margin-bottom: 8%;
+		padding: 1% 4%;
+		width: auto;
+		max-width: 100%;
+		float: none;
+	}
+
+	header, footer {
+		padding: 1% 4%;
+	}
+}
+
+/* for 700px or less */
+@media screen and (max-width: 700px) {
+
+	.person:first-of-type {
+		width: auto;
+                max-width: 100%;
+		float: none;
+                margin-bottom: 5%;
+	}
+	
+	.person {
+		width: auto;
+                max-width: 100%;
+		float: none;
+		margin-bottom: 5%;
+	}
+	
+	.person:last-of-type {
+		width: auto;
+                max-width: 100%;
+		float: none;
+	}
+
+}
+
+/* for 480px or less */
+@media screen and (max-width: 480px) {
+
+	header {
+		height: auto;
+	}
+	h1 {
+            padding-bottom: 20px;
+		font-size: 2em;
+	}
+	.person, .person:first-of-type, .person:last-of-type{
+            margin-top: 10%;
+	}
+        .person:last-of-type{
+            margin-bottom: 10%;
+        }
+}
+
+header{
+    margin-bottom: 2%;
+}
+
+.container, header, footer {
+	/*border: solid 1px #ccc;*/
+}
+.myInfo{
+    margin-top: 20px;
+}
+.myInfo p{
+    margin-bottom: 5px;
+}
+.img-cirkel{
+    border: solid 1px #ccc;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+}
