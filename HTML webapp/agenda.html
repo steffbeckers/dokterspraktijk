@@ -11,9 +11,6 @@
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- Styles -->
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
     <!-- Full Calendar -->
     <link href='vendor/fullcalendar-2.5.0/fullcalendar.css' rel='stylesheet' />
     <link href='vendor/fullcalendar-2.5.0/fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -21,6 +18,9 @@
     <script src='vendor/fullcalendar-2.5.0/lib/jquery.min.js'></script>
     <script src='vendor/fullcalendar-2.5.0/fullcalendar.min.js'></script>
     <script src='vendor/fullcalendar-2.5.0/lang/nl.js'></script>
+    <!-- Styles -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
     <header id="main">
@@ -160,67 +160,55 @@
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
-                defaultDate: '12-12-2015',
+                allDaySlot: false,
+                defaultDate: Date.now(),
                 lang: 'nl',
+                editable: false,
+                timeFormat: 'H:mm',
+                defaultView: 'agendaWeek',
+                minTime: '08:00:00',
+                maxTime: '19:00:00',
+                scrollTime: calculateScrollTime('08:00:00', '19:00:00'),
+                slotDuration: '00:15:00',
+                slotLabelInterval: '00:15:00',
+                slotLabelFormat: 'H:mm',
                 editable: true,
+                eventDurationEditable: false,
+                snapDuration: '00:15:00',
                 eventLimit: true, // allow "more" link when too many events
                 events: [
                     {
-                        title: 'All Day Event',
-                        start: '2015-12-01'
+                        title: "Vrij",
+                        start: '2015-12-14T10:30:00',
+                        end: '2015-12-14T10:45:00'
                     },
                     {
-                        title: 'Long Event',
-                        start: '2015-12-07',
-                        end: '2015-12-10'
+                        title: "Vrij",
+                        start: '2015-12-14T10:45:00',
+                        end: '2015-12-14T11:00:00'
                     },
                     {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2015-12-09T16:00:00'
+                        title: "Vrij",
+                        start: '2015-12-14T11:00:00',
+                        end: '2015-12-14T11:15:00'
                     },
                     {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2015-12-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2015-12-11',
-                        end: '2015-12-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2015-12-12T10:30:00',
-                        end: '2015-12-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2015-12-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2015-12-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2015-12-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2015-12-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2015-12-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2015-12-28'
+                        title: "Vrij",
+                        start: '2015-12-14T11:30:00',
+                        end: '2015-12-14T11:45:00'
                     }
                 ]
             });
+
+            function calculateScrollTime(minTime, maxTime) {
+                var nowHours = moment(Date.now()).format('H:mm:ss');
+
+                if(nowHours > maxTime) {
+                    return minTime;
+                } else {
+                    return nowHours;
+                }
+            }
         });
     </script>
 </body>
