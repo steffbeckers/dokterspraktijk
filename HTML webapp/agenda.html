@@ -163,7 +163,6 @@
                 allDaySlot: false,
                 defaultDate: Date.now(),
                 lang: 'nl',
-                editable: false,
                 timeFormat: 'H:mm',
                 defaultView: 'agendaWeek',
                 minTime: '08:00:00',
@@ -175,53 +174,36 @@
                 editable: true,
                 eventDurationEditable: false,
                 snapDuration: '00:15:00',
-                eventLimit: true, // allow "more" link when too many events
-                displayEventTime: false,
+                eventLimit: true,
+                displayEventTime: true,
+                displayEventEnd: true,
                 slotEventOverlap: false,
-                eventColor: '',
+                eventBackgroundColor: '#37424c',
                 defaultTimedEventDuration: '00:15:00',
-                /*
+
                 eventClick: function(calEvent, jsEvent, view) {
-
-                    alert('Event: ' + calEvent.title);
-                    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                    alert('View: ' + view.name);
-
-                    // change the border color just for fun
-                    $(this).css('border-color', 'red');
-                },
-                */
-                eventClick: function(event, element) {
-
-                    event.eventBackgroundColor = "#fff";
-
-                    $('#calendar').fullCalendar('updateEvent', event);
-
+                    alert('ID: ' + calEvent.id);
                 },
                 events: [
                     {
                         id: 1,
-                        title: "Afspraak",
-                        start: '2015-12-14T10:30:00',
-                        end: '2015-12-14T10:45:00'
+                        start: '2015-12-16T14:30:00',
+                        end: '2015-12-14T14:45:00'
                     },
                     {
                         id: 2,
-                        title: "Afspraak",
-                        start: '2015-12-14T10:45:00',
-                        end: '2015-12-14T11:00:00'
+                        start: '2015-12-16T14:45:00',
+                        end: '2015-12-14T15:00:00'
                     },
                     {
                         id: 3,
-                        title: "Afspraak",
-                        start: '2015-12-14T11:00:00',
-                        end: '2015-12-14T11:15:00'
+                        start: '2015-12-16T15:00:00',
+                        end: '2015-12-14T15:15:00'
                     },
                     {
                         id: 4,
-                        title: "Afspraak",
-                        start: '2015-12-14T11:30:00',
-                        end: '2015-12-14T11:45:00'
+                        start: '2015-12-16T15:30:00',
+                        end: '2015-12-14T15:45:00'
                     }
                 ]
             });
@@ -238,7 +220,6 @@
 
             function calculateScrollTime(minTime, maxTime) {
                 var nowHours = moment(Date.now()).format('H:mm:ss');
-
                 if(nowHours > maxTime) {
                     return minTime;
                 } else {
