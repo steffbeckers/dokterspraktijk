@@ -8,6 +8,15 @@
     <script src={{asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js')}}></script>
     <script src={{asset('vendor/fullcalendar-2.5.0/lang/nl.js')}}></script>
     {% endblock %}
+    {% block breadcrumbs %}
+        <ul class="breadcrumb">
+                        <li>
+                            <a href="{{ path(app.request.attributes.get('_route'))}}">
+                                Afspraak maken
+                            </a>
+                        </li>
+                    </ul>
+    {% endblock %}
 {% block body %}
     
     <section>

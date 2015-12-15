@@ -1,10 +1,12 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}{% endblock %}
+
 {% block body %}
 <section>
         <div class="container">
             <div class="row">
+                {% if is_granted("ROLE_USER") == false %}
                 <div class="col-md-9">
                     <section class="panel panel-default">
                         <div class="panel-body">
@@ -17,34 +19,21 @@
                     </section>
                 </div>
                 <div class="col-md-3">
+                    {% render url('fos_user_security_login') %}
+                </div>
+                {% else %}
+                 <div class="col-md-12">
                     <section class="panel panel-default">
-                        <div class="panel-heading">
-                            Aanmelden
-                        </div>
                         <div class="panel-body">
-                            <form class="form-horizontal login-form">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control" id="inputEmail" placeholder="E-mailadres" autocomplete="off">
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Welkom op de website van onze dokterspraktijk.
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="password" class="form-control" id="inputPassword" placeholder="Wachtwoord" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <a href="#" class="btn btn-primary btn-wide">Aanmelden</a>
-                                    </div>
-                                </div>
-                                <p class="text-center">
-                                    <a href="#">Heeft u nog geen account?</a>
-                                </p>
-                            </form>
+                            </div>
                         </div>
                     </section>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>

@@ -8,13 +8,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class AfspraakController extends Controller
 {
     /**
-     * @Route("/afspraak")
+     * @Route("/afspraak-maken", name="afspraak-maken")
      */
     public function showCalendarAction()
     {
-        return $this->render('AppBundle:Afspraak:showCalendar.html.twig', array(
-            // ...
-        ));
+    	$securityContext = $this->container->get('security.context');
+    	$router = $this->container->get('router');
+
+    	if( $securityContext->isGranted('ROLE_USER')){
+        	return $this->render('AppBundle:Afspraak:showCalendar.html.twig');
+    	} else 
+    	{
+    		return $this->render('AppBundle:Home:login.html.twig');
+    	}
+    	
     }
 
 }

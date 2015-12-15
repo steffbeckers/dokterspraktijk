@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ContactController extends Controller
 {
     /**
-     * @Route("/contact")
+     * @Route("/contact", name="contact")
      */
     public function indexAction()
     {

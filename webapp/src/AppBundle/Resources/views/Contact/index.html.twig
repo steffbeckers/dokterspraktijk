@@ -1,6 +1,15 @@
 {% extends "::base.html.twig" %}
 
 {% block title %}{% endblock %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ path(app.request.attributes.get('_route'))}}">
+                Contact
+            </a>
+        </li>
+    </ul>
+{% endblock %}
 
 {% block body %}
 <h1>Dit is de contact pagina</h1>
