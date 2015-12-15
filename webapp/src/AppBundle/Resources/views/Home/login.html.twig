@@ -1,0 +1,38 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{% endblock %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ path(app.request.attributes.get('_route'))}}">
+                Aanmelden
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+{% block body %}
+<section>
+        <div class="container">
+            <div class="row">
+                {% if is_granted("ROLE_USER") == false %}
+                <div class="col-md-4">
+                	{% render url('fos_user_security_login') %}
+                </div>
+                <div class="col-md-8">
+                    <section class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    registratieformulier hier
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                {% else %}
+                	
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
