@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="user")
  */
 class User extends BaseUser
 {
@@ -19,9 +19,11 @@ class User extends BaseUser
      */
     protected $id;
 
-    public function __construct()
+    protected $apiKey;
+
+    public function __construct($key)
     {
         parent::__construct();
-        // your own logic
+        $this->apiKey = $key;
     }
 }

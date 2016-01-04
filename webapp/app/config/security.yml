@@ -3,16 +3,21 @@
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
+
     role_hierarchy:
-        ROLE_USER:       ROLE_USER
         ROLE_ADMIN:      ROLE_ADMIN
         ROLE_DOCTER:     ROLE_DOCTER
+        ROLE_USER:       ROLE_USER
+
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username    
+            id: fos_user.user_provider.username
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -35,6 +40,7 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
