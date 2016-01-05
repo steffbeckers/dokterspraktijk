@@ -12,7 +12,7 @@ class ContactController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Contact:index.html.twig', array(
+        return $this->render('Contact/index.html.twig', array(
             // ...
         ));
     }

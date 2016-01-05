@@ -12,7 +12,7 @@ class TeamController extends Controller
      */
     public function showAction()
     {
-        return $this->render('AppBundle:Team:show.html.twig', array(
+        return $this->render('Team/show.html.twig', array(
             // ...
         ));
     }

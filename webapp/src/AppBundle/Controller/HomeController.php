@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Home:index.html.twig', array(
+        return $this->render('Home/index.html.twig', array(
             // ...
         ));
     }
@@ -30,7 +30,7 @@ class HomeController extends Controller
         	return $this->redirectToRoute('afspraak-maken');
     	} else 
     	{
-    		return $this->render('AppBundle:Home:login.html.twig', array(
+    		return $this->render('Home/login.html.twig', array(
             // ...
         ));
     	}
@@ -41,7 +41,7 @@ class HomeController extends Controller
     */
      public function registerAction()
     {
-        return $this->render('AppBundle:Home:register.html.twig', array(
+        return $this->render('Home/register.html.twig', array(
             // ...
         ));
     }

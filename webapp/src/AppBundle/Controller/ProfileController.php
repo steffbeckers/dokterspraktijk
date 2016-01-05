@@ -12,7 +12,7 @@ class ProfileController extends Controller
      */
     public function showUserAction()
     {
-        return $this->render('AppBundle:Profile:showUser.html.twig', array(
+        return $this->render('Profile/showUser.html.twig', array(
             // ...
         ));
     }
@@ -22,7 +22,7 @@ class ProfileController extends Controller
      */
     public function updateUserAction()
     {
-        return $this->render('AppBundle:Profile:updateUser.html.twig', array(
+        return $this->render('Profile/updateUser.html.twig', array(
             // ...
         ));
     }
@@ -32,7 +32,7 @@ class ProfileController extends Controller
      */
     public function deleteUserAction()
     {
-        return $this->render('AppBundle:Profile:deleteUser.html.twig', array(
+        return $this->render('Profile/deleteUser.html.twig', array(
             // ...
         ));
     }
@@ -42,7 +42,7 @@ class ProfileController extends Controller
      */
     public function addUserAction()
     {
-        return $this->render('AppBundle:Profile:addUser.html.twig', array(
+        return $this->render('Profile/addUser.html.twig', array(
             // ...
         ));
     }

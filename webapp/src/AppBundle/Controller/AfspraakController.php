@@ -16,10 +16,10 @@ class AfspraakController extends Controller
     	$router = $this->container->get('router');
 
     	if( $securityContext->isGranted('ROLE_USER')){
-        	return $this->render('AppBundle:Afspraak:showCalendar.html.twig');
+        	return $this->render('Afspraak/showCalendar.html.twig');
     	} else 
     	{
-    		return $this->render('AppBundle:Home:login.html.twig');
+    		return $this->render('Home/login.html.twig');
     	}
     	
     }
