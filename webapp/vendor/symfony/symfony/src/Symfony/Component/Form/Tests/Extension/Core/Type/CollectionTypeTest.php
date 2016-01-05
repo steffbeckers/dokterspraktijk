@@ -316,4 +316,46 @@ class CollectionTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
 
         $this->assertSame('foo', $form->createView()->vars['prototype']->vars['value']);
     }
+
+    /**
+     * @group legacy
+     */
+    public function testLegacyPrototypeData()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\CollectionType', array(), array(
+            'allow_add' => true,
+            'prototype' => true,
+            'type' => 'Symfony\Component\Form\Extension\Core\Type\TextType',
+            'options' => array(
+                'data' => 'bar',
+            ),
+        ));
+        $this->assertSame('bar', $form->createView()->vars['prototype']->vars['value']);
+    }
+
+    public function testPrototypeDefaultRequired()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\CollectionType', array(), array(
+            'entry_type' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
+            'allow_add' => true,
+            'prototype' => true,
+            'prototype_name' => '__test__',
+        ));
+
+        $this->assertTrue($form->createView()->vars['prototype']->vars['required']);
+    }
+
+    public function testPrototypeSetNotRequired()
+    {
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\CollectionType', array(), array(
+            'entry_type' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
+            'allow_add' => true,
+            'prototype' => true,
+            'prototype_name' => '__test__',
+            'required' => false,
+        ));
+
+        $this->assertFalse($form->createView()->vars['required'], 'collection is not required');
+        $this->assertFalse($form->createView()->vars['prototype']->vars['required'], '"prototype" should not be required');
+    }
 }
