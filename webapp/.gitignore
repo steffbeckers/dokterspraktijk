@@ -8,5 +8,5 @@
 /app/logs/*
 !app/logs/.gitkeep
 /app/phpunit.xml
-
+parameters.yml
 vendor/

@@ -12,5 +12,55 @@
 {% endblock %}
 
 {% block body %}
-<h1>Dit is de contact pagina</h1>
+<section>
+        <div class="container">
+            <div class="row">
+                 <div class="col-md-12">
+                    <section class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                   <p>Elfde Liniestraat</p>
+                                   <p>3500, Hasselt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+<section>
+        <div class="container">
+            <div class="row">
+                 <div class="col-md-12">
+                    <section class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="">
+									    <label for="name">Naam</label>
+									    {% if is_granted("ROLE_USER") %}
+									    <input type="text" name="name" class="form-control" required value="{{app.user.username | capitalize}}"/>
+										{% else %}
+										<input type="text" name="name" class="form-control" required/>
+										{% endif %}	
+									    <label for="email">Email</label>
+									    <input type="email" name="email" class="form-control" required />
+									    <label for="subject">Onderwerp</label>
+									    <input type="text" name="subject" class="form-control" />
+									    <label for="message">Boodschap</label>
+									    <textarea name="message" class="form-control" required></textarea>
+										</br>
+									    <input class="btn btn-primary" type="submit" value="Verstuur" />
+									  </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 {% endblock %}
