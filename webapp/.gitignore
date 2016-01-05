@@ -8,3 +8,5 @@
 /app/logs/*
 !app/logs/.gitkeep
 /app/phpunit.xml
+
+vendor/
