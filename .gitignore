@@ -58,3 +58,6 @@ dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
+
+webapp/composer.lock
+webapp/vendor/

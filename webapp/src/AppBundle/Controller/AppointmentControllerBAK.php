@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class AfspraakController extends Controller
+class AppointmentController extends Controller
 {
     /**
      * @Route("/afspraak-maken", name="afspraak-maken")
