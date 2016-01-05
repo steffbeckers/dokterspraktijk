@@ -19,11 +19,11 @@ class User extends BaseUser
      */
     protected $id;
 
-    protected $apiKey;
+    //protected $apiKey;
 
-    public function __construct($key)
+    public function __construct()
     {
         parent::__construct();
-        $this->apiKey = $key;
+        //$this->apiKey = $key;
     }
 }
