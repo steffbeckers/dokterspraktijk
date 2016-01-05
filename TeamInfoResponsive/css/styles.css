@@ -318,7 +318,10 @@ footer .copy {
         margin-top: 0px;
         margin-bottom: 0px;
     }
-    .navbar-brand .navbar-header{
+    .navbar-brand{
+        width: 100%;
+    }
+    .navbar-header{
         width: 100%;
     }
     #myNavbar{
