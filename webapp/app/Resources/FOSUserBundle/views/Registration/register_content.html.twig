@@ -34,6 +34,13 @@
                     {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
                 </div>
             </div>
+            <div class="form-group">
+                {{ form_label(form.captcha, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-9">
+                    {{ form_widget(form.captcha, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(form.captcha) }}
+                </div>
+            </div>
         </div>
 
     </div>
