@@ -11,7 +11,9 @@ class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('captcha', CaptchaType::class);
+        $builder->add('captcha', CaptchaType::class, array(
+            'quality' => 60,
+        ));
     }
 
     public function getParent()
