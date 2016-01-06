@@ -1,8 +1,26 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Registreer</h3>
     </div>
-{{ form_end(form) }}
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    <div class="panel-body">
+
+
+            {{ form_widget(form) }}
+
+
+    </div>
+    <div class="panel-footer clearfix">
+        <div class="pull-right">
+            <!--<a href="#" class="btn btn-primary">Registreer</a>-->
+            <input type="submit" class="btn btn-primary" value="{{ 'registration.submit'|trans }}" />
+            <a href="" class="btn btn-default">Annuleer</a>
+            <div>
+
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+</div>
