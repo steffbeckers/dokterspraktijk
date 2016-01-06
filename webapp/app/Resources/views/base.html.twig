@@ -23,59 +23,40 @@
 <body>
     {% block header %}
 
-        <header id="main">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="logo">
-                        <h1>
-                            <a href="#">
-                                Dokterspraktijk
-                            </a>
-                        </h1>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <ul class="nav nav-pills pull-right">
-                        <li {% if app.request.get('_route') == 'homepage' %} class="active" {% endif %}>
-                            <a href="/">
-                                Startpagina
-                            </a>
-                        </li>
-                        <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}>
-                            <a href="/afspraak-maken">
-                                Afspraak maken
-                            </a>
-                        </li>
-                        <li {% if app.request.get('_route') == 'contact' %} class="active" {% endif %}>
-                            <a href="/contact">
-                                Contact
-                            </a>
-                        </li>
-                        {% if is_granted("ROLE_USER") %}
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-user"></i>{{app.user.username | capitalize}}<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="/showUser"><i class="fa fa-cog"></i>Instellingen</a></li>
-                                <li class="divider"></li>
-                                <li><a href="/logout"><i class="fa fa-sign-out"></i>Afmelden</a></li>
-                            </ul>
-                        </li>
-                        {% else %}
-                        <li {% if app.request.get('_route') == 'aanmelden' %} class="active" {% endif %}>
-                            <a href="/aanmelden">
-                                Aanmelden
-                            </a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
+        <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="images/icon.png"/> Dokterspraktijk</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li {% if app.request.get('_route') == 'homepage' %} class="active" {% endif %}><a href="/">Startpagina</a></li>
+                    <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}><a href="/afspraak-maken">Afspraak maken</a></li>
+                    <li {% if app.request.get('_route') == 'contact' %} class="active" {% endif %}><a href="/contact">Contact</a></li>
+                    {% if is_granted("ROLE_USER") %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{app.user.username | capitalize}}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/showUser">Instellingen</a></li>
+                            <li><a href="/logout">Afmelden</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li {% if app.request.get('_route') == 'aanmelden' %} class="active" {% endif %}>
+                        <a href="/aanmelden">
+                            Aanmelden
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
-    </header>
-
+    </nav>
     <header id="sub">
         <div class="container">
             <div class="row">
@@ -83,19 +64,17 @@
                     {% block breadcrumbs %}
                     <ul class="breadcrumb">
                         <li>
-                            <a href="{{ path(app.request.attributes.get('_route'))}}">
-                                Startpagina
-                            </a>
+                            <a href="{{ path(app.request.attributes.get('_route'))}}">Startpagina</a>
                         </li>
                     </ul>
                     {% endblock %}
                 </div>
-                <div class="col-md-6 col-sm-4 col-xs-12">
+                <div id="search" class="col-md-6 col-sm-4 col-xs-12">
                     <div class="searchbar">
-                        <form class="navbar-form navbar-right" role="search">
+                        <form class="navbar-form pull-right" role="search">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Zoeken">
-                                <a href="#"><i class="fa fa-search"></i></a>
+                                <input type="text" class="form-control">
+                                <a href="#"><span class="fa fa-search"></span></a>
                             </div>
                         </form>
                     </div>
