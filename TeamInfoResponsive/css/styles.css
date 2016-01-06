@@ -233,11 +233,12 @@ footer .copy {
     font-size:13px;
     margin: 2px;
 }
-
+/* Search & breadcrum */
 #search{
     padding-right: 0px;
     padding-left: 0px;
 }
+
 
 /* Navbar layout standaard */
 .navbar{
@@ -276,6 +277,12 @@ footer .copy {
 
 /* Responsive CSS */
 
+@media (max-width: 400px){
+    .navbar-brand{
+        font-size: 25px;
+    }
+}
+
 /* Mobile phones */
 @media (min-width: 768px) {
     .navbar{
@@ -306,6 +313,33 @@ footer .copy {
     }
     .navbar-toggle{
         margin-right: 10px;
+    }
+    #sub .pull-right{
+        float: none !important;
+    }
+    #sub .navbar-form{
+        margin: 0;
+        padding:0px 20px;
+        border: none;
+        border-width: 0;
+    }
+    header#sub .searchbar .fa{
+        margin-top: 15px;
+        left: -25px;
+    }
+    #sub .navbar-form .form-group{
+        display: inline-flex;
+        width: 100%;
+    }
+    header#sub .searchbar .form-control{
+        left:0;
+    }
+    header#sub ul.breadcrumb{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    #sub .form-group>a{
+        width: 0;
     }
 }
 
