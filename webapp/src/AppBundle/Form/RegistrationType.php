@@ -3,6 +3,7 @@
 
 namespace AppBundle\Form;
 
+use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
@@ -13,6 +14,14 @@ class RegistrationType extends AbstractType
     {
         $builder->add('captcha', CaptchaType::class, array(
             'quality' => 60,
+        ));
+        $builder->add('name');
+        $builder->add('lastname');
+        $builder->add('yearOfBirth', 'birthday', array(
+            'widget' => 'single_text',
+            // this is actually the default format for single_text
+
+            'format' => 'dd-MM-yyyy',
         ));
     }
 
