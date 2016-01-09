@@ -1,4 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+<section>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">Registreer</h3>
@@ -57,3 +63,8 @@
     {{ form_end(form) }}
 </div>
 </div>
+</div>
+</div>
+</div>
+</section>
+{% endblock %}
