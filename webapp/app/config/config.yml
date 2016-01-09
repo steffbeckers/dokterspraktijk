@@ -77,5 +77,19 @@ fos_user:
     registration:
         form:
             type: AppBundle\Form\RegistrationType
+    from_email:
+        address:        noreply@dokterspraktijk.be
+        sender_name:    De Dokter
+    registration:
+        confirmation:
+            enabled: true
+            from_email:
+                address:        registration@dokterspraktijk.be
+                sender_name:    De Dokter
+    resetting:
+        email:
+            from_email:
+                address:        resetting@dokterspraktijk.be
+                sender_name:    De Dokter
 
 gregwar_captcha: ~
