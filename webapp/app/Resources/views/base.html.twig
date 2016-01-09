@@ -47,6 +47,11 @@
                                 Afspraak maken
                             </a>
                         </li>
+                         <li {% if app.request.get('_route') == 'dokters' %} class="active" {% endif %}>
+                            <a href="/dokters">
+                                Dokters
+                            </a>
+                        </li>
                         <li {% if app.request.get('_route') == 'contact' %} class="active" {% endif %}>
                             <a href="/contact">
                                 Contact
