@@ -211,6 +211,12 @@ a:hover, a:focus {
     color: #0f9b87;
 }
 
+#captcha img{
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
 /* Footer */
 
 footer{
@@ -305,7 +311,6 @@ footer .copy {
     }
 }
 
-
 /* Desktop */
 @media (max-width: 767px) {
     .navbar-brand{
@@ -385,4 +390,7 @@ footer .copy {
     background: white;
     cursor: inherit;
     display: block;
+}
+.margin50{
+    margin-bottom: 50px;
 }

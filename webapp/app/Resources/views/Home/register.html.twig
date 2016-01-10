@@ -1,5 +1,21 @@
+{% extends "::base.html.twig" %}
 {% extends "FOSUserBundle::layout.html.twig" %}
-
-
+{% block title %}{% endblock %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ path(app.request.attributes.get('_route'))}}">
+                Aanmelden
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="col-lg-10">
+            {% render url('fos_user_registration_register') %}
+        </div>
+    </div>
+{% endblock %}
 {% block fos_user_content %}
 {% endblock fos_user_content %}
