@@ -12,8 +12,9 @@ class ProfileController extends Controller
      */
     public function showUserAction()
     {
+        $user = $this->getUser();; 
         return $this->render('Profile/showUser.html.twig', array(
-            // ...
+            'user' => $user,
         ));
     }
 

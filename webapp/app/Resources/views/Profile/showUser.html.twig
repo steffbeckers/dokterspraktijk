@@ -1,7 +1,5 @@
-{% extends "::base.html.twig" %}
-
 {% block title %}{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Profile:showUser page</h1>
+{% render url('fos_user_profile_edit') %}
 {% endblock %}

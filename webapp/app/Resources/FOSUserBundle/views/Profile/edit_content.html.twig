@@ -1,8 +1,55 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-    </div>
-{{ form_end(form) }}
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-0"></div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Pas profiel aan</h3>
+                        </div>
+							{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_registration_register' } }) }}
+							   
+							  <div class="panel-body">
+                            	<div class=" col-md-12 col-lg-12 ">
+                                	<div class="form-group">
+                                    {{ form_label(form.username, 'Voornaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+	                                    <div class="col-sm-8">
+	                                        {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
+	                                        {{ form_errors(form.username) }}
+	                                    </div>
+                                	</div>
+                            	</div>
+                                <div class=" col-md-12 col-lg-12 ">
+                                	<div class="form-group">
+                                    {{ form_label(form.email, 'Email', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+	                                    <div class="col-sm-8">
+	                                        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+	                                        {{ form_errors(form.email) }}
+	                                    </div>
+                                	</div>
+                            	</div>
+                                <div class=" col-md-12 col-lg-12 ">
+                                	<div class="form-group">
+                                    {{ form_label(form.name, 'Email', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+	                                    <div class="col-sm-8">
+	                                        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+	                                        {{ form_errors(form.email) }}
+	                                    </div>
+                                	</div>
+                            	</div>
+
+							    
+							{{ form_end(form) }}
+							<div>
+							        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+							    </div>
+							</div>
+                </div>
+                <div class="col-sm-12 margin50"></div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
