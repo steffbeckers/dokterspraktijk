@@ -12,6 +12,7 @@ class AppointmentController extends Controller
      */
     public function showCalendarAction()
     {
+        
         $securityContext = $this->container->get('security.context');
         $router = $this->container->get('router');
 
