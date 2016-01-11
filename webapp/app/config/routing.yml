@@ -12,3 +12,7 @@ homepage:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+appointments:
+    type: rest
+    resource: ApiBundle\Controller\AppointmentsController
+
