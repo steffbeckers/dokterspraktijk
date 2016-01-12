@@ -20,3 +20,8 @@ services:
         arguments: [@router]
         tags:
             - { name: kernel.event_subscriber }
+    app.registration.comfermed:
+            class: AppBundle\EventListener\RegistrationListener
+            arguments: ['@router', '@mailer', '@service_container', '@twig']
+            tags:
+                - { name: kernel.event_subscriber }
