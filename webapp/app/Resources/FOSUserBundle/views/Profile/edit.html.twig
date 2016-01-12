@@ -1,5 +1,13 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
-
+{% block breadcrumbs %}
+        <ul class="breadcrumb">
+            <li>
+                <a href="{{ path(app.request.attributes.get('_route'))}}">
+                   	Profiel aanpassen
+                </a>
+            </li>
+        </ul>
+{% endblock %}
 {% block fos_user_content %}
 {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
 {% endblock fos_user_content %}
