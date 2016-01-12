@@ -1,17 +1,5 @@
-{% extends "::base.html.twig" %}
-
 {% block title %}{% endblock %}
 
 {% block body %}
-    <div class="container marginTop">
-        <div class="row">
-            <div class="col-xs-12 col-md-8">
-                <h1>Welkom op uw persoonlijke instellingen</h1>
-                <p>
-                    Hier kan u uw gegevens aanpassen
-                </p>
-            </div>
-        </div>
-    </div>
-
+{% render url('fos_user_profile_show') %}
 {% endblock %}
