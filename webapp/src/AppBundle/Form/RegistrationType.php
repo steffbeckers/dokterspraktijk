@@ -19,8 +19,6 @@ class RegistrationType extends AbstractType
         $builder->add('lastname');
         $builder->add('yearOfBirth', 'birthday', array(
             'widget' => 'single_text',
-            // this is actually the default format for single_text
-
             'format' => 'dd-MM-yyyy',
         ));
     }
