@@ -23,7 +23,17 @@
                         <input type="checkbox" id="remember_me" name="_remember_me" value="on" checked />
                         <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
                     </div>
-                </div>    
+                </div>
+            
+                {% if error %}
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %} 
+           
                 <div class="form-group">
                     <div class="col-md-12">
                         <input type="submit" class="btn btn-primary btn-wide"id="_submit" name="_submit" value="Aanmelden" />
@@ -32,6 +42,7 @@
                 <p class="text-center">
                     <a href="/register">Heeft u nog geen account?</a>
                 </p>
+                
             </form>
         </div>
     </section>
