@@ -75,7 +75,17 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     registration:
+        confirmation:
+            enabled: false
+            from_email:
+                address:  praktijkdokter@gmail.com
+                sender_name:  DoktersPraktijk
         form:
             type: AppBundle\Form\RegistrationType
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: email/password_resetting.email.twig
 
 gregwar_captcha: ~
