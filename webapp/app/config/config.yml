@@ -82,3 +82,11 @@ fos_user:
             type: AppBundle\Form\ProfileType
 
 gregwar_captcha: ~
+easy_admin:
+    entities: 
+        User:
+            label: 'Gebruikers'
+            class: AppBundle\Entity\User
+        Appointment:
+            label: 'Afspraken'
+            class: AppBundle\Entity\Appointment
