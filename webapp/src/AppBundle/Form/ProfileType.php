@@ -1,5 +1,5 @@
 <?php
-// src/AppBundle/Form/RegistrationType.php
+// src/AppBundle/Form/ProfileType.php
 
 namespace AppBundle\Form;
 
@@ -8,24 +8,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 
-class RegistrationType extends AbstractType
+class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('captcha', CaptchaType::class, array(
-            'quality' => 60,
-        ));
         $builder->add('name');
         $builder->add('lastname');
         $builder->add('yearOfBirth', 'birthday', array(
             'widget' => 'single_text',
+            // this is actually the default format for single_text
+
             'format' => 'dd-MM-yyyy',
         ));
     }
 
     public function getParent()
     {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+        return 'FOS\UserBundle\Form\Type\ProfileFormType';
 
         // Or for Symfony < 2.8
         // return 'fos_user_registration';
@@ -33,7 +32,7 @@ class RegistrationType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'app_user_registration';
+        return 'app_user_profile';
     }
 
     // For Symfony 2.x

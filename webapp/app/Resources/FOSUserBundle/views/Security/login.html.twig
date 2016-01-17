@@ -10,14 +10,30 @@
                 <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate')}}" />
                 <div class="form-group">
                     <div class="col-md-12">
-                        <input class="form-control" type="text" id="username" name="_username" required="required" autocomplete="off" placeholder="Gebruikersnaam"/>
+                        <input class="form-control" type="text" id="username" name="_username" required="required" autocomplete="off" placeholder="{{ 'security.login.username'|trans }}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <input type="password" class="form-control" id="password" placeholder="Wachtwoord" autocomplete="off" name="_password" required="required" >
+                        <input type="password" class="form-control" id="password" placeholder="{{ 'security.login.password'|trans }}" autocomplete="off" name="_password" required="required" >
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" checked />
+                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                    </div>
+                </div>
+            
+                {% if error %}
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %} 
+           
                 <div class="form-group">
                     <div class="col-md-12">
                         <input type="submit" class="btn btn-primary btn-wide"id="_submit" name="_submit" value="Aanmelden" />
@@ -26,6 +42,7 @@
                 <p class="text-center">
                     <a href="/register">Heeft u nog geen account?</a>
                 </p>
+                
             </form>
         </div>
     </section>

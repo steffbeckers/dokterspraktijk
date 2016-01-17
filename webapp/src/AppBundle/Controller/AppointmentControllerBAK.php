@@ -12,15 +12,16 @@ class AppointmentController extends Controller
      */
     public function showCalendarAction()
     {
+        return $this->render('Afspraak/showCalendar.html.twig');
     	$securityContext = $this->container->get('security.context');
     	$router = $this->container->get('router');
 
-    	if( $securityContext->isGranted('ROLE_USER')){
-        	return $this->render('Afspraak/showCalendar.html.twig');
-    	} else 
-    	{
-    		return $this->render('Home/login.html.twig');
-    	}
+    	// if( $securityContext->isGranted('ROLE_USER')){
+     //    	return $this->render('Afspraak/showCalendar.html.twig');
+    	// } else 
+    	// {
+    	// 	return $this->render('Home/login.html.twig');
+    	// }
     	
     }
 

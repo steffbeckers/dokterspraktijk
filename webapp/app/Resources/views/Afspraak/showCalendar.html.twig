@@ -72,6 +72,7 @@
         </div>
     </section>
     <script type="text/javascript">
+<<<<<<< HEAD
 
         function loadTestDataArray(callback){
             $.ajax({
@@ -137,6 +138,17 @@
                     }
                 }
             });
+
+            var calendar = $('#calendar').fullCalendar('getCalendar');
+
+            calendar.on('dayClick', function(date, jsEvent, view) {
+                var newEvent = new Object();
+
+                newEvent.title = "Afspraak";
+                newEvent.start = date;
+                $('#calendar').fullCalendar( 'renderEvent', newEvent );
+            });
+
         });
     </script>
 {% endblock %}

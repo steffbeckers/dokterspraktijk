@@ -12,18 +12,20 @@ class ProfileController extends Controller
      */
     public function showUserAction()
     {
+        $user = $this->getUser();
         return $this->render('Profile/showUser.html.twig', array(
-            // ...
+            'user' => $user,
         ));
     }
 
     /**
-     * @Route("/updateUser")
+     * @Route("/profiel-aanpassen", name="Profielaanpassen")
      */
     public function updateUserAction()
     {
+         $user = $this->getUser();
         return $this->render('Profile/updateUser.html.twig', array(
-            // ...
+            'user' => $user,
         ));
     }
 
@@ -46,5 +48,4 @@ class ProfileController extends Controller
             // ...
         ));
     }
-
 }
