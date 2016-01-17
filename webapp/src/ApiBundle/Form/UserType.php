@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Form;
+namespace ApiBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AppointmentType extends AbstractType
+class UserType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,14 +15,9 @@ class AppointmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('docterid')
-            ->add('patientid')
-            ->add('patientname')
-            ->add('message')
-            ->add('startdatetime', 'datetime')
-            ->add('enddatetime', 'datetime')
-            ->add('room')
+            ->add('name')
+            ->add('lastname')
+            ->add('yearOfBirth', 'datetime')
         ;
     }
     
@@ -32,7 +27,7 @@ class AppointmentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Appointment'
+            'data_class' => 'ApiBundle\Entity\User'
         ));
     }
 }

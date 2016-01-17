@@ -12,6 +12,9 @@ class AppointmentController extends Controller
      */
     public function showCalendarAction()
     {
+        //TODO delete
+        return $this->render('Afspraak/showCalendar.html.twig');
+
         $securityContext = $this->container->get('security.context');
         $router = $this->container->get('router');
 

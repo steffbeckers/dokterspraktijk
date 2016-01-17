@@ -1,14 +1,15 @@
-api:
-    resource: "@ApiBundle/Controller/"
-    type:     annotation
-    prefix:   /api
-
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
 homepage:
     path:   /
     defaults:  { _controller: AppBundle:Home:index }
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+api:
+    type: rest
+    prefix: /api
+    resource: "@ApiBundle/Resources/config/users_routes.yml"
