@@ -9,22 +9,23 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="appointment")
  * @ORM\Entity
+ *
  */
 class Appointment
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=50, nullable=false)
+     * @ORM\Column(name="title", type="string", length=50, nullable=true)
      */
     private $title;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="docterId", type="integer", nullable=false)
+     * @ORM\Column(name="doctorId", type="integer", nullable=false)
      */
-    private $docterid;
+    private $doctorid;
 
     /**
      * @var integer
@@ -50,16 +51,16 @@ class Appointment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startDateTime", type="datetime", nullable=false)
+     * @ORM\Column(name="start", type="datetime", nullable=false)
      */
-    private $startdatetime;
+    private $start;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDateTime", type="datetime", nullable=false)
+     * @ORM\Column(name="end", type="datetime", nullable=false)
      */
-    private $enddatetime;
+    private $end;
 
     /**
      * @var string
@@ -69,9 +70,16 @@ class Appointment
     private $room;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="occupied", type="integer", nullable=false)
+     */
+    private $occupied;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -101,30 +109,6 @@ class Appointment
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set docterid
-     *
-     * @param integer $docterid
-     *
-     * @return Appointment
-     */
-    public function setDocterid($docterid)
-    {
-        $this->docterid = $docterid;
-
-        return $this;
-    }
-
-    /**
-     * Get docterid
-     *
-     * @return integer
-     */
-    public function getDocterid()
-    {
-        return $this->docterid;
     }
 
     /**
@@ -199,53 +183,6 @@ class Appointment
         return $this->message;
     }
 
-    /**
-     * Set startdatetime
-     *
-     * @param \DateTime $startdatetime
-     *
-     * @return Appointment
-     */
-    public function setStartdatetime($startdatetime)
-    {
-        $this->startdatetime = $startdatetime;
-
-        return $this;
-    }
-
-    /**
-     * Get startdatetime
-     *
-     * @return \DateTime
-     */
-    public function getStartdatetime()
-    {
-        return $this->startdatetime;
-    }
-
-    /**
-     * Set enddatetime
-     *
-     * @param \DateTime $enddatetime
-     *
-     * @return Appointment
-     */
-    public function setEnddatetime($enddatetime)
-    {
-        $this->enddatetime = $enddatetime;
-
-        return $this;
-    }
-
-    /**
-     * Get enddatetime
-     *
-     * @return \DateTime
-     */
-    public function getEnddatetime()
-    {
-        return $this->enddatetime;
-    }
 
     /**
      * Set room
@@ -279,5 +216,101 @@ class Appointment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set doctorid
+     *
+     * @param integer $doctorid
+     *
+     * @return Appointment
+     */
+    public function setDoctorid($doctorid)
+    {
+        $this->doctorid = $doctorid;
+
+        return $this;
+    }
+
+    /**
+     * Get doctorid
+     *
+     * @return integer
+     */
+    public function getDoctorid()
+    {
+        return $this->doctorid;
+    }
+
+    /**
+     * Set start
+     *
+     * @param \DateTime $start
+     *
+     * @return Appointment
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return \DateTime
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set end
+     *
+     * @param \DateTime $end
+     *
+     * @return Appointment
+     */
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    /**
+     * Get end
+     *
+     * @return \DateTime
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * Set occupied
+     *
+     * @param int $occupied
+     *
+     * @return integer
+     */
+    public function setOccupied($occupied)
+    {
+        $this->occupied = $occupied;
+
+        return $this;
+    }
+
+    /**
+     * Get occupied
+     *
+     * @return integer
+     */
+    public function getOccupied()
+    {
+        return $this->occupied;
     }
 }
