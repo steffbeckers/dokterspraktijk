@@ -99,4 +99,4 @@ easy_admin:
         Appointment:
             label: 'Afspraken'
             class: AppBundle\Entity\Appointment
-    site_name: 'DoktersPraktijk'
+    site_name: 'Dokterspraktijk'
