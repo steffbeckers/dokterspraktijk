@@ -22,7 +22,7 @@ services:
             - { name: kernel.event_subscriber }
     app.registration.comfermed:
             class: AppBundle\EventListener\RegistrationListener
-            arguments: ['@router', '@mailer', '@service_container', '@twig']
+            arguments: [%mailer_user%, '@router', '@mailer', '@service_container']
             tags:
                 - { name: kernel.event_subscriber }
     app.changepassword.change:
