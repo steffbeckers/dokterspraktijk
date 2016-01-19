@@ -1,6 +1,5 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{% endblock %}
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li>
@@ -13,42 +12,26 @@
 
 {% block body %}
     <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <section class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p>Elfde Liniestraat</p>
-
-                                    <p>3500, Hasselt</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
         <div class="container margin50">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <form action="">
                         <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Stuur ons een e-mail
+                            </div>
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label for="name">Naam</label>
                                     {% if is_granted("ROLE_USER") %}
                                         <input type="text" name="name" class="form-control" required
-                                               value="{{ app.user.username | capitalize }}"/>
+                                               value="{{ app.user.name | capitalize }} {{ app.user.lastname | capitalize }}"/>
                                     {% else %}
                                         <input type="text" name="name" class="form-control" required/>
                                     {% endif %}
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
+                                    <label for="email">E-mailadres</label>
                                     <input type="email" name="email" class="form-control" required/>
                                 </div>
                                 <div class="form-group">
@@ -66,6 +49,46 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <section class="panel panel-default">
+                                <div class="panel-heading">
+                                    Contactgegevens
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <h4><i class="fa fa-phone"></i> Telefoonnummer:
+                                                <div class="col-sm-12 clear-fix"></div>
+                                                &nbsp; 012 / 34 56 78
+                                            </h4>
+                                            <h5></h5>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-12">
+                                                    <h4>
+                                                        <i class="fa fa-map-marker"></i> Adres
+                                                    </h4>
+                                                </div>
+                                                <div class="col-md-8 col-sm-12">
+                                                    <h5>Elfde-Liniestraat 24</h5>
+                                                    <h5>3500 HASSELT</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2514.2161476765714!2d5.346823473553479!3d50.93821558004994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c12170a225109d%3A0xdbca8c74e3d3632!2sPXL+B-Blok+(Elfde-Linie)%2C+Gouverneur+Verwilghensingel%2C+3500+Hasselt!5e0!3m2!1snl!2sbe!4v1453201132750"
+                                                    width="100%" height="200" frameborder="0" style="border:0"
+                                                    allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
