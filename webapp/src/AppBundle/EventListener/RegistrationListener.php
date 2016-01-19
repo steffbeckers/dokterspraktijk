@@ -43,8 +43,6 @@ class RegistrationListener implements EventSubscriberInterface
         return array(
             FOSUserEvents::REGISTRATION_SUCCESS =>'onRegSucces',
             FOSUserEvents::REGISTRATION_COMPLETED =>'onRegCompleted',
-            /*FOSUserEvents::REGISTRATION_CONFIRMED =>'onRegComfirmed',
-            FOSUserEvents::REGISTRATION_CONFIRM =>'onRegComfirm',*/
         );
     }
 
@@ -64,7 +62,7 @@ class RegistrationListener implements EventSubscriberInterface
             ->setSubject('Registratie compleet - DoktersPraktijk')
             ->setFrom('praktijkdokter@gmail.com')
             ->setTo($userMail)
-            ->setBody($this->container->get('templating')->renderResponse(
+            ->setBody($this->container->get('templating')->render(
                         'Email/registration.html.twig',
                         array(
                             'user' => $user
