@@ -58,19 +58,21 @@ class RegistrationListener implements EventSubscriberInterface
         $user = $event->getUser();
         $userMail = $user->getEmail();
 
-        $message = \Swift_Message::newInstance()
+        $message = \Swift_Message::newInstance();
+        /*$imgUrl = $message->embed(\Swift_Image::fromPath('web/images/icon.png'));*/
+        $message
             ->setSubject('Registratie compleet - DoktersPraktijk')
-            ->setFrom('praktijkdokter@gmail.com')
+            ->setFrom(array('praktijkdokter@gmail.com' => 'DoktersPraktijk'))
             ->setTo($userMail)
             ->setBody($this->container->get('templating')->render(
                         'Email/registration.html.twig',
                         array(
-                            'user' => $user
+                            'user' => $user,
+                            /*'imgUrl' => $imgUrl*/
                         )
                 )
             , 'text/html');
 
         $this->mailer->send($message);
     }
-
 }
