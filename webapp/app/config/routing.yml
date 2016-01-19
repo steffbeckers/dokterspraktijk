@@ -9,7 +9,12 @@ homepage:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-api:
+api_users:
     type: rest
     prefix: /api
     resource: "@ApiBundle/Resources/config/users_routes.yml"
+
+api_appointments:
+    type: rest
+    prefix: /api
+    resource: "@ApiBundle/Resources/config/appointments_routes.yml"

@@ -16,7 +16,7 @@ class Appointment
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=50, nullable=false)
+     * @ORM\Column(name="title", type="string", length=50, nullable=true)
      */
     private $title;
 
@@ -72,14 +72,14 @@ class Appointment
     /**
      * @var bool
      *
-     * @ORM\Column(name="occupied", type="boolean")
+     * @ORM\Column(name="occupied", type="integer", nullable=false)
      */
     private $occupied;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -293,9 +293,9 @@ class Appointment
     /**
      * Set occupied
      *
-     * @param boolean $occupied
+     * @param int $occupied
      *
-     * @return Appointment
+     * @return integer
      */
     public function setOccupied($occupied)
     {
@@ -307,7 +307,7 @@ class Appointment
     /**
      * Get occupied
      *
-     * @return boolean
+     * @return integer
      */
     public function getOccupied()
     {

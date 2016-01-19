@@ -6,6 +6,8 @@ namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
 
 
 /**
@@ -57,7 +59,10 @@ class User extends BaseUser
      */
     private $yearOfBirth;
 
-    //protected $apiKey;
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $apiKey;
 
     public function __construct()
     {
@@ -97,26 +102,26 @@ class User extends BaseUser
 
 
     /**
-     * Set appointments
+     * Set apiKey
      *
-     * @param array $appointments
+     * @param string $apiKey
      *
      * @return User
      */
-    public function setAppointments($appointments)
+    public function setApiKey($apiKey)
     {
-        $this->appointments = $appointments;
+        $this->apiKey = $apiKey;
 
         return $this;
     }
 
     /**
-     * Get appointments
+     * Get apiKey
      *
-     * @return array
+     * @return string
      */
-    public function getAppointments()
+    public function getApiKey()
     {
-        return $this->appointments;
+        return $this->apiKey;
     }
 }
