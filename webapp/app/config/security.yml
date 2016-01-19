@@ -37,6 +37,7 @@ security:
                 secret:   '%secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
+                name: dokter_rememberme
 
             # activate different ways to authenticate
 
