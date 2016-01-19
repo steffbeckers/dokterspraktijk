@@ -3,18 +3,71 @@
 namespace ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 
 class UsersController extends FOSRestController
 {
+    public function getUsersAction()
+    {
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+
+        if (false === $users) {
+            throw $this->createNotFoundException("No users found.");
+        }
+
+        $view = $this->view($users, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Get("/users/doctors")
+     */
+    public function getUsersDoctorsAction()
+    {
+        $query = $this->getDoctrine()->getEntityManager()
+            ->createQuery('SELECT u FROM AppBundle:User u WHERE u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_DOCTOR"%');
+
+        $doctors = $query->getResult();
+
+        if (false === $doctors) {
+            throw $this->createNotFoundException("No found.");
+        }
+
+        $view = $this->view($doctors, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Get("/users/doctors")
+     */
+    public function getUsersUsersction()
+    {
+        $query = $this->getDoctrine()->getEntityManager()
+            ->createQuery('SELECT u FROM AppBundle:User u WHERE u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_DOCTOR"%');
+
+        $doctors = $query->getResult();
+
+        if (false === $doctors) {
+            throw $this->createNotFoundException("No found.");
+        }
+
+        $view = $this->view($doctors, 200);
+        return $this->handleView($view);
+    }
+
     public function getUserAction($id)
     {
         $user = $this->getDoctrine()->getRepository('AppBundle:User')->find($id);
-        //var_dump($user);
+
         if (false === $user) {
             throw $this->createNotFoundException("User not found.");
         }
 
         $view = $this->view($user, 200);
         return $this->handleView($view);
-    } // "get_user"   [GET] /users/{slug}
+    }
+
+
 }

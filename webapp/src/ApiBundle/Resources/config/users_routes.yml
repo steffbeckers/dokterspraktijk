@@ -2,8 +2,3 @@ users:
     type:     rest
     resource: ApiBundle\Controller\UsersController
     name_prefix:  api_
-
-appointments:
-    type:     rest
-    resource: ApiBundle\Controller\AppointmentsController
-    name_prefix:  api_

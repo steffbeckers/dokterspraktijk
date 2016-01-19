@@ -3,12 +3,28 @@
 namespace ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 
 class AppointmentsController extends FOSRestController
 {
     public function getAppointmentsAction()
     {
         $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findAll();
+
+        if (false === $appointments) {
+            throw $this->createNotFoundException("No appointments found.");
+        }
+
+        $view = $this->view($appointments, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Get("/appointments/open")
+     */
+    public function getAppointmentsOpenAction()
+    {
+        $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('occupied' => 0));
 
         if (false === $appointments) {
             throw $this->createNotFoundException("No appointments found.");
@@ -27,6 +43,21 @@ class AppointmentsController extends FOSRestController
         }
 
         $view = $this->view($appointment, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Get("/doctors/{id}/appointments/open")
+     */
+    public function getDoctorAppointmentsOpenAction($id)
+    {
+        $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('doctorid' => $id, 'occupied' => 0));
+
+        if (false === $appointments) {
+            throw $this->createNotFoundException("Appointments not found.");
+        }
+
+        $view = $this->view($appointments, 200);
         return $this->handleView($view);
     }
 

@@ -1,0 +1,4 @@
+appointments:
+    type:     rest
+    resource: ApiBundle\Controller\AppointmentsController
+    name_prefix:  api_

@@ -72,11 +72,24 @@
         </div>
     </section>
     <script type="text/javascript">
-<<<<<<< HEAD
 
-        function loadTestDataArray(callback){
+        function calculateScrollTime(minTime, maxTime) {
+            var nowHours = moment(Date.now()).format('H:mm:ss');
+            if (nowHours > maxTime) {
+                return minTime;
+            } else {
+                return nowHours;
+            }
+        }
+
+        function dateNowInt() {
+            var d = new Date();
+            return d.getDay();
+        }
+
+        function loadAppointments(url, callback) {
             $.ajax({
-                url: 'http://localhost:8000/api/appointments',
+                url: url,
                 dataType: 'json',
                 success: function(data) {
                     callback(data);
@@ -85,13 +98,16 @@
         }
 
         $(document).ready(function () {
-            loadTestDataArray(function(testData) {
+            var calendar = $('#calendar').fullCalendar('getCalendar');
+
+            loadAppointments('http://localhost:8000/api/appointments', function (appointments) {
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev,next today',
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
+                    firstDay: dateNowInt(),
                     allDaySlot: false,
                     defaultDate: Date.now(),
                     lang: 'nl',
@@ -112,39 +128,18 @@
                     slotEventOverlap: false,
                     eventBackgroundColor: '#37424c',
                     defaultTimedEventDuration: '00:15:00',
-
+                    minDate: moment(Date.now()),
                     eventClick: function(calEvent, jsEvent, view) {
                         alert('ID: ' + calEvent.id);
                     },
-                    events: testData
+                    events: appointments
                 });
-
-                var calendar = $('#calendar').fullCalendar('getCalendar');
-
-                calendar.on('dayClick', function(date, jsEvent, view) {
-                    var newEvent = new Object();
-
-                    newEvent.title = "Afspraak";
-                    newEvent.start = date;
-                    $('#calendar').fullCalendar( 'renderEvent', newEvent );
-                });
-
-                function calculateScrollTime(minTime, maxTime) {
-                    var nowHours = moment(Date.now()).format('H:mm:ss');
-                    if(nowHours > maxTime) {
-                        return minTime;
-                    } else {
-                        return nowHours;
-                    }
-                }
             });
-
-            var calendar = $('#calendar').fullCalendar('getCalendar');
 
             calendar.on('dayClick', function(date, jsEvent, view) {
                 var newEvent = new Object();
 
-                newEvent.title = "Afspraak";
+                newEvent.title = "";
                 newEvent.start = date;
                 $('#calendar').fullCalendar( 'renderEvent', newEvent );
             });
