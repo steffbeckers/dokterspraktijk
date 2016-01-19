@@ -59,15 +59,9 @@ class User extends BaseUser
      */
     private $yearOfBirth;
 
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
-    private $apiKey;
-
     public function __construct()
     {
         parent::__construct();
-        //$this->apiKey = $key;
     }
 
     public function getName()
