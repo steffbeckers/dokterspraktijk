@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\Groups;
 
 
 /**
@@ -20,6 +21,7 @@ class User extends BaseUser
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"doctorList"})
      */
     protected $id;
 
@@ -34,6 +36,7 @@ class User extends BaseUser
      *     maxMessage="The name is too long.",
      *     groups={"Registration", "Profile"}
      * )
+     * @Groups({"doctorList"})
      */
     protected $name;
 
@@ -48,6 +51,7 @@ class User extends BaseUser
      *     maxMessage="The lastname is too long.",
      *     groups={"Registration", "Profile"}
      * )
+     * @Groups({"doctorList"})
      */
     protected $lastname;
 

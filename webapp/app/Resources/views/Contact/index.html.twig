@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-    <section>
+    <section class="margin50">
         <div class="container margin50">
             <div class="row">
                 <div class="col-md-8">
@@ -32,7 +32,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email">E-mailadres</label>
-                                    <input type="email" name="email" class="form-control" required/>
+                                    <input type="email" name="email" class="form-control"
+                                           value="{{ app.user.emailCanonical }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="subject">Onderwerp</label>

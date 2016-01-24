@@ -87,7 +87,7 @@
             return d.getDay();
         }
 
-        function loadAppointments(url, callback) {
+        function loadData(url, callback) {
             $.ajax({
                 url: url,
                 dataType: 'json',
@@ -98,14 +98,15 @@
         }
 
         $(document).ready(function () {
-            var calendar = $('#calendar').fullCalendar('getCalendar');
 
-            loadAppointments('http://localhost:8000/api/appointments', function (appointments) {
+
+            var calendar = $('#calendar').fullCalendar('getCalendar');
+            loadData('http://localhost:8000/api/appointments', function (appointments) {
                 $('#calendar').fullCalendar({
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
+                        right: 'agendaWeek,agendaDay'
                     },
                     firstDay: dateNowInt(),
                     allDaySlot: false,
@@ -141,7 +142,7 @@
 
                 newEvent.title = "";
                 newEvent.start = date;
-                $('#calendar').fullCalendar( 'renderEvent', newEvent );
+                calendar.fullCalendar('renderEvent', newEvent);
             });
 
         });
