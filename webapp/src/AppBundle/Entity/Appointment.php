@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Appointment
@@ -52,6 +53,7 @@ class Appointment
      * @var \DateTime
      *
      * @ORM\Column(name="start", type="datetime", nullable=false)
+     * @Groups({"appointmentsList"})
      */
     private $start;
 
@@ -59,6 +61,7 @@ class Appointment
      * @var \DateTime
      *
      * @ORM\Column(name="end", type="datetime", nullable=false)
+     * @Groups({"appointmentsList"})
      */
     private $end;
 
@@ -66,6 +69,7 @@ class Appointment
      * @var string
      *
      * @ORM\Column(name="room", type="string", length=30, nullable=false)
+     * @Groups({"appointmentsList"})
      */
     private $room;
 
