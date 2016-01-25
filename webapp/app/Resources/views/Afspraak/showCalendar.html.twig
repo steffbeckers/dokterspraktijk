@@ -1,12 +1,13 @@
 {% extends "::base.html.twig" %}
 	{% block styles %}
-	{{ parent() }}
-    <link href={{asset('vendor/fullcalendar-2.5.0/fullcalendar.css')}} rel='stylesheet' />
-    <link href={{asset('vendor/fullcalendar-2.5.0/fullcalendar.print.css')}} rel='stylesheet' media='print' />
-    <script src={{asset('vendor/fullcalendar-2.5.0/lib/moment.min.js')}}></script>
-    <script src={{asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js')}}></script>
-    <script src={{asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js')}}></script>
-    <script src={{asset('vendor/fullcalendar-2.5.0/lang/nl.js')}}></script>
+        {{ parent() }}
+        <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.css') }} rel='stylesheet'/>
+        <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.print.css') }} rel='stylesheet' media='print'/>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lib/moment.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lang/nl.js') }}></script>
+        <link href={{ asset('css/calendarStyles.css') }} rel='stylesheet'/>
     {% endblock %}
     {% block breadcrumbs %}
         <ul class="breadcrumb">
@@ -36,7 +37,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="name">Naam</label>
-                                        <input type="text" class="form-control" id="name" value="Gebruiker" >
+                                        <input type="text" class="form-control" id="name"
+                                               value="{{ app.user.name | capitalize }} {{ app.user.lastname | capitalize }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="textArea" class="control-label">Reden van consultatie</label>
@@ -51,7 +53,7 @@
                     </section>
                 </div>
                 <div class="col-md-9">
-                    <section class="panel panel-default">
+                    <section id="calendar-panel" class="panel panel-default">
                         <div class="panel-heading">
                             Agenda
                         </div>
@@ -96,8 +98,47 @@
 
         $(document).ready(function () {
 
+            prefs = [];
+            prefs["minHour"] = '08:00:00';
+            prefs["maxHour"] = '19:00:00';
+            prefs["slotDuration"] = '00:15:00';
+
             var select = $('#select-doctor');
-            var calendar = $('#calendar').fullCalendar('getCalendar');
+
+            var calendar = $('#calendar');
+            calendar.fullCalendar('getCalendar');
+            calendar.fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay'
+                },
+                firstDay: dateNowInt(),
+                allDaySlot: false,
+                defaultDate: Date.now(),
+                lang: 'nl',
+                timeFormat: 'H:mm',
+                defaultView: 'agendaWeek',
+                minTime: prefs["minHour"],
+                maxTime: prefs["maxHour"],
+                scrollTime: calculateScrollTime(prefs["minHour"], prefs["maxHour"]),
+                slotDuration: prefs["slotDuration"],
+                slotLabelInterval: prefs["slotDuration"],
+                slotLabelFormat: 'H:mm',
+                editable: true,
+                eventDurationEditable: false,
+                snapDuration: prefs["slotDuration"],
+                eventLimit: true,
+                displayEventTime: true,
+                displayEventEnd: true,
+                slotEventOverlap: false,
+                eventBackgroundColor: '#37424c',
+                defaultTimedEventDuration: prefs["slotDuration"],
+                minDate: moment(Date.now()),
+                eventClick: function (calEvent, jsEvent, view) {
+                    alert('Start - End: ' + calEvent.start + " - " + calEvent.end);
+                }
+            });
 
             loadData('http://localhost:8000/api/users/doctors', function (doctors) {
                 $.each(doctors, function (key, value) {
@@ -107,7 +148,6 @@
             });
 
             select.on('change', function () {
-                //console.log($(this).val());
                 loadAppointments($(this).val());
             });
 
@@ -116,55 +156,11 @@
                     console.log(appointments);
                     $('#preloader').hide();
 
-                    prefs = new Array();
-                    prefs["minHour"] = '08:00:00';
-                    prefs["maxHour"] = '19:00:00';
-                    prefs["slotDuration"] = '00:15:00';
-
-                    $('#calendar').fullCalendar({
-                        header: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'agendaWeek,agendaDay'
-                        },
-                        firstDay: dateNowInt(),
-                        allDaySlot: false,
-                        defaultDate: Date.now(),
-                        lang: 'nl',
-                        timeFormat: 'H:mm',
-                        defaultView: 'agendaWeek',
-                        minTime: prefs["minHour"],
-                        maxTime: prefs["maxHour"],
-                        scrollTime: calculateScrollTime(prefs["minHour"], prefs["maxHour"]),
-                        slotDuration: prefs["slotDuration"],
-                        slotLabelInterval: prefs["slotDuration"],
-                        slotLabelFormat: 'H:mm',
-                        editable: true,
-                        eventDurationEditable: false,
-                        snapDuration: prefs["slotDuration"],
-                        eventLimit: true,
-                        displayEventTime: true,
-                        displayEventEnd: true,
-                        slotEventOverlap: false,
-                        eventBackgroundColor: '#37424c',
-                        defaultTimedEventDuration: prefs["slotDuration"],
-                        minDate: moment(Date.now()),
-                        eventClick: function (calEvent, jsEvent, view) {
-                            alert('Start - End: ' + calEvent.start + " - " + calEvent.end);
-                        },
-                        events: appointments
-                    });
-                    $('#calendar').fullCalendar('rerenderEvents');
+                    calendar.fullCalendar('removeEvents');
+                    calendar.fullCalendar('addEventSource', appointments);
+                    calendar.fullCalendar('refetchEvents');
                 });
             }
-
-            calendar.on('dayClick', function(date, jsEvent, view) {
-                var newEvent = new Object();
-
-                newEvent.title = "";
-                newEvent.start = date;
-                calendar.fullCalendar('renderEvent', newEvent);
-            });
 
         });
     </script>
