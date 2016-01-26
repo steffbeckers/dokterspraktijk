@@ -50,11 +50,32 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         return array(
             array('/'),
             array('/afspraak-maken'),
-            array('/contact'),
-            array('/aanmelden'),
-            array('/meettheteam'),
-            array('/login'),
+            array('/profiel-aanpassen'),
+            array('/profile/change-password'),
         );
     }
+
+    /**
+    * @dataProvidor urlAdminProvider
+    */
+    public function testPageIsSuccessfulLoggedInAdmin($url)
+    {
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'admin',
+        ));
+
+        $client->request('GET', $url);
+
+        $this->assertTrue($client->getResponse()->isSuccessful());
+    }
+
+    public function urlAdminProvider()
+    {
+        return array(
+            array('/admin'),
+        );
+    }
+
 
 }
