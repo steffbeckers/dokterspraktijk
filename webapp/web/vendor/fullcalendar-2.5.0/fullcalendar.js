@@ -4259,7 +4259,6 @@ Grid.mixin({
 				return range.start.format(formatStr);
 			}
 		}
-
 		return '';
 	},
 
@@ -6638,12 +6637,6 @@ TimeGrid.mixin({
 			for (i = 0; i < colSegs.length; i++) {
 				seg = colSegs[i];
 				seg.el.css(this.generateSegPositionCss(seg));
-
-				// if the height is short, add a className for alternate styling
-				if (seg.bottom - seg.top < 30) {
-					seg.el.addClass('fc-short');
-				}
-
 				containerEl.append(seg.el);
 			}
 

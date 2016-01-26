@@ -11,12 +11,12 @@
     {% endblock %}
     {% block breadcrumbs %}
         <ul class="breadcrumb">
-                        <li>
-                            <a href="{{ path(app.request.attributes.get('_route'))}}">
-                                Afspraak maken
-                            </a>
-                        </li>
-                    </ul>
+            <li>
+                <a href="{{ path(app.request.attributes.get('_route'))}}">
+                    Afspraak maken
+                </a>
+            </li>
+        </ul>
     {% endblock %}
 {% block body %}
     
@@ -30,24 +30,29 @@
                         </div>
                         <div class="panel-body">
                             <div class="col-md-12">
-                                <form class="form-horizontal appointment-form">
+                                <!--<form onsubmit="" class="form-horizontal appointment-form">-->
                                     <div class="form-group">
-                                        <label class="control-label" for="select-doctor">Dokter</label>
+                                        <label class="control-label" for="select-doctor"> Dokter</label>
                                         <select class="form-control" id="select-doctor"></select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Naam</label>
+                                        <label class="control-label" for="name"> Naam patiënt</label>
                                         <input type="text" class="form-control" id="name"
-                                               value="{{ app.user.name | capitalize }} {{ app.user.lastname | capitalize }}">
+                                               value="{{ app.user.name | capitalize }} {{ app.user.lastname | capitalize }}" placeholder="Naam patiënt" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Datum en tijd</label>
+                                        <p id="dateAndTime" style="margin-bottom: 0px;">Selecteer een datum en tijd in de agenda.</p>
                                     </div>
                                     <div class="form-group">
                                         <label for="textArea" class="control-label">Reden van consultatie</label>
-                                        <textarea class="form-control" rows="3" id="textArea" placeholder="Reden van consultatie"></textarea>
+                                        <textarea class="form-control" rows="3" id="message" placeholder="Reden van consultatie"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <a href="#" class="btn btn-primary btn-wide">Afspraak maken</a>
+                                        <button type="submit" id="createAppointment" href="#" class="btn btn-primary btn-wide">Afspraak maken</button>
                                     </div>
-                                </form>
+                                    <input id="appointmentId" type="hidden" value="" />
+                                <!--</form>-->
                             </div>
                         </div>
                     </section>
@@ -60,7 +65,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img class="center-block" id="preloader" src="{{ asset('preloader1.gif') }}"/>
+                                    <img class="center-block margin10" id="preloader" src="{{ asset('preloader1.gif') }}"/>
                                     <div id="calendar"></div>
                                 </div>
                             </div>
@@ -90,12 +95,25 @@
             $.ajax({
                 url: url,
                 dataType: 'json',
+                type: 'get',
                 success: function(data) {
                     callback(data);
                 }
             })
         }
-
+        /*
+        function updateAppointment($id, callback) {
+            $.ajax({
+                url: 'http://localhost:8000/api/appointments/' + $id,
+                data:
+                dataType: 'json',
+                type: 'post',
+                success: function(data) {
+                    callback(data);
+                }
+            })
+        }
+        */
         $(document).ready(function () {
 
             prefs = [];
@@ -104,6 +122,8 @@
             prefs["slotDuration"] = '00:15:00';
 
             var select = $('#select-doctor');
+
+            var previousClick = null;
 
             var calendar = $('#calendar');
             calendar.fullCalendar('getCalendar');
@@ -117,6 +137,7 @@
                 allDaySlot: false,
                 defaultDate: Date.now(),
                 lang: 'nl',
+                editable: false,
                 timeFormat: 'H:mm',
                 defaultView: 'agendaWeek',
                 minTime: prefs["minHour"],
@@ -125,18 +146,42 @@
                 slotDuration: prefs["slotDuration"],
                 slotLabelInterval: prefs["slotDuration"],
                 slotLabelFormat: 'H:mm',
-                editable: true,
                 eventDurationEditable: false,
                 snapDuration: prefs["slotDuration"],
                 eventLimit: true,
                 displayEventTime: true,
                 displayEventEnd: true,
                 slotEventOverlap: false,
-                eventBackgroundColor: '#37424c',
+                eventBackgroundColor: 'rgb(26, 36, 47)',
                 defaultTimedEventDuration: prefs["slotDuration"],
                 minDate: moment(Date.now()),
                 eventClick: function (calEvent, jsEvent, view) {
-                    alert('Start - End: ' + calEvent.start + " - " + calEvent.end);
+                    /*alert('#ID Start - End: #'+ calEvent.id + " " + calEvent.start + " - " + calEvent.end);
+                    $('a.fc-event').each(function(){
+                        if($(this).css('background-color').toLowerCase() == 'rgb(24, 188, 156)'){
+                            $(this).css('background-color', 'rgb(26, 36, 47)');
+                        }
+                    });*/
+
+                    /*$('a.fc-event').each(function() {
+                        console.log(this);
+                        $(this).css("backgroundColor", "rgb(26, 36, 47)");
+                    });*/
+
+                    if(previousClick != calEvent && previousClick != null) {
+                        previousClick.backgroundColor = "rgb(26, 36, 47)";
+                    }
+
+                    previousClick = calEvent;
+                    calEvent.backgroundColor = "rgb(24, 188, 156)";
+                    calendar.fullCalendar('rerenderEvents');
+
+                    $("input[id=appointmentId]").val(calEvent.id);
+                    $("#dateAndTime").html("<i class=\"fa fa-calendar\" /> &nbsp;" + moment(calEvent.start).format('DD MMMM YYYY') + "<br /><i class=\"fa fa-clock-o\" /> &nbsp;" + moment(calEvent.start).format('H:mm') + " - " + moment(calEvent.end).format('H:mm'));
+                },
+                loading: function(bool) {
+                    if (bool) $('#preloader').show();
+                    else $('#preloader').hide();
                 }
             });
 
@@ -148,7 +193,37 @@
             });
 
             select.on('change', function () {
+                $("#dateAndTime").html("Selecteer een datum en tijd in de agenda.");
+                $("input[id=appointmentId]").val();
                 loadAppointments($(this).val());
+            });
+
+            $('#createAppointment').on('click', function () {
+
+                var patientId = {{ app.user.id }};
+                var appointmentId = $('#appointmentId').val();
+                var patientName = $('#name').val();
+                var patientMessage = $('#message').val();
+
+                console.log(appointmentId + " " + patientName + " " + patientMessage);
+
+                /*
+                $.post("http://localhost:8000/api/appointments/" + appointmentId,
+                    { patientId: 1, patientName: "Steff", message: "TESTTT" }
+                );
+                */
+
+                $.ajax({
+                    url: "http://localhost:8000/api/appointments/" + appointmentId,
+                    type: 'post',
+                    dataType: 'json',
+                    data: '{"patientId":1, "patientName":"Steff tlj", "message":"TEST"}',
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+
+                loadAppointments(select.val())
             });
 
             function loadAppointments(doctorId) {

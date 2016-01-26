@@ -57,7 +57,10 @@ class User extends BaseUser
      */
     private $yearOfBirth;
 
-    //protected $apiKey;
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $apiKey;
 
     public function __construct()
     {

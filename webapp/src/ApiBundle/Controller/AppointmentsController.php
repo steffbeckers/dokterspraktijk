@@ -2,9 +2,14 @@
 
 namespace ApiBundle\Controller;
 
+use AppBundle\Entity\Appointment;
+use AppBundle\Form\AppointmentType;
+use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use JMS\Serializer\SerializationContext;
+use DateTime;
 
 class AppointmentsController extends FOSRestController
 {
@@ -86,4 +91,46 @@ class AppointmentsController extends FOSRestController
         $view = $this->view($appointments, 200);
         return $this->handleView($view);
     }
+
+    /**
+     * @Post("/appointments")
+     */
+    public function postAppointmentAction(Request $request){
+        $data = json_decode($request->getContent(), true);
+
+        $appointment = new Appointment();
+        $appointment->setTitle(null);
+        $appointment->setDoctorid($data['doctorId']);
+        $appointment->setPatientid(null);
+        $appointment->setPatientname(null);
+        $appointment->setMessage(null);
+        $appointment->setRoom($data['room']);
+        $appointment->setStart(new \DateTime($data['start']));
+        $appointment->setEnd(new \DateTime($data['end']));
+        $appointment->setOccupied(0);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($appointment);
+        $em->flush();
+    }
+
+    /**
+     * @Post("/appointments/{id}")
+     */
+    public function postAppointmentUpdateAction(Request $request, $id){
+
+        $data = json_decode($request->getContent(), true);
+
+        $appointment = $this->getDoctrine()->getRepository('AppBundle:Appointment')->find($id);
+
+        $appointment->setPatientid($data['patientId']);
+        $appointment->setPatientname($data['patientName']);
+        $appointment->setMessage($data['message']);
+        $appointment->setOccupied(1);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($appointment);
+        $em->flush();
+    }
+
 }
