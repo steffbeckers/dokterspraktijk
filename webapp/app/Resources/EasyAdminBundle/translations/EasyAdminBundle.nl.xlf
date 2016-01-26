@@ -5,7 +5,7 @@
             <!-- page titles -->
             <trans-unit id="new.page_title">
                 <source>new.page_title</source>
-                <target>Maak nieuwe %entity_name%</target>
+                <target>Maak nieuw(e) %entity_name%</target>
             </trans-unit>
             <trans-unit id="show.page_title">
                 <source>show.page_title</source>
