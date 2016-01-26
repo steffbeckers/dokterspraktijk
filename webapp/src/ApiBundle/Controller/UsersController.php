@@ -4,6 +4,7 @@ namespace ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
+use JMS\Serializer\SerializationContext;
 
 class UsersController extends FOSRestController
 {
@@ -30,30 +31,32 @@ class UsersController extends FOSRestController
 
         $doctors = $query->getResult();
 
+
         if (false === $doctors) {
             throw $this->createNotFoundException("No found.");
         }
 
         $view = $this->view($doctors, 200);
+        $view->setSerializationContext(SerializationContext::create()->setGroups(array('doctorList')));
         return $this->handleView($view);
     }
 
     /**
-     * @Get("/users/doctors")
+     * @Get("/users/endusers")
      */
-    public function getUsersUsersction()
+    public function getUsersUsersAction()
     {
         $query = $this->getDoctrine()->getEntityManager()
             ->createQuery('SELECT u FROM AppBundle:User u WHERE u.roles LIKE :role')
-            ->setParameter('role', '%"ROLE_DOCTOR"%');
+            ->setParameter('role', '%"ROLE_USER"%');
 
-        $doctors = $query->getResult();
+        $endusers = $query->getResult();
 
-        if (false === $doctors) {
+        if (false === $endusers) {
             throw $this->createNotFoundException("No found.");
         }
 
-        $view = $this->view($doctors, 200);
+        $view = $this->view($endusers, 200);
         return $this->handleView($view);
     }
 

@@ -4,6 +4,7 @@ namespace ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
+use JMS\Serializer\SerializationContext;
 
 class AppointmentsController extends FOSRestController
 {
@@ -58,6 +59,7 @@ class AppointmentsController extends FOSRestController
         }
 
         $view = $this->view($appointments, 200);
+        $view->setSerializationContext(SerializationContext::create()->setGroups(array('appointmentsList')));
         return $this->handleView($view);
     }
 

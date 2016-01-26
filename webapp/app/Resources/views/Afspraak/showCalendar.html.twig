@@ -1,12 +1,13 @@
 {% extends "::base.html.twig" %}
 	{% block styles %}
-	{{ parent() }}
-    <link href={{asset('vendor/fullcalendar-2.5.0/fullcalendar.css')}} rel='stylesheet' />
-    <link href={{asset('vendor/fullcalendar-2.5.0/fullcalendar.print.css')}} rel='stylesheet' media='print' />
-    <script src={{asset('vendor/fullcalendar-2.5.0/lib/moment.min.js')}}></script>
-    <script src={{asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js')}}></script>
-    <script src={{asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js')}}></script>
-    <script src={{asset('vendor/fullcalendar-2.5.0/lang/nl.js')}}></script>
+        {{ parent() }}
+        <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.css') }} rel='stylesheet'/>
+        <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.print.css') }} rel='stylesheet' media='print'/>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lib/moment.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lang/nl.js') }}></script>
+        <link href={{ asset('css/calendarStyles.css') }} rel='stylesheet'/>
     {% endblock %}
     {% block breadcrumbs %}
         <ul class="breadcrumb">
@@ -31,16 +32,13 @@
                             <div class="col-md-12">
                                 <form class="form-horizontal appointment-form">
                                     <div class="form-group">
-                                        <label class="control-label" for="select-docter">Dokter</label>
-                                        <select class="form-control" id="select-docter">
-                                            <option>Dokter 1</option>
-                                            <option>Dokter 2</option>
-                                            <option>Dokter 3</option>
-                                        </select>
+                                        <label class="control-label" for="select-doctor">Dokter</label>
+                                        <select class="form-control" id="select-doctor"></select>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="name">Naam</label>
-                                        <input type="text" class="form-control" id="name" value="Gebruiker" >
+                                        <input type="text" class="form-control" id="name"
+                                               value="{{ app.user.name | capitalize }} {{ app.user.lastname | capitalize }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="textArea" class="control-label">Reden van consultatie</label>
@@ -55,13 +53,14 @@
                     </section>
                 </div>
                 <div class="col-md-9">
-                    <section class="panel panel-default">
+                    <section id="calendar-panel" class="panel panel-default">
                         <div class="panel-heading">
                             Agenda
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <img class="center-block" id="preloader" src="{{ asset('preloader1.gif') }}"/>
                                     <div id="calendar"></div>
                                 </div>
                             </div>
@@ -87,7 +86,7 @@
             return d.getDay();
         }
 
-        function loadAppointments(url, callback) {
+        function loadData(url, callback) {
             $.ajax({
                 url: url,
                 dataType: 'json',
@@ -98,51 +97,70 @@
         }
 
         $(document).ready(function () {
-            var calendar = $('#calendar').fullCalendar('getCalendar');
 
-            loadAppointments('http://localhost:8000/api/appointments', function (appointments) {
-                $('#calendar').fullCalendar({
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    firstDay: dateNowInt(),
-                    allDaySlot: false,
-                    defaultDate: Date.now(),
-                    lang: 'nl',
-                    timeFormat: 'H:mm',
-                    defaultView: 'agendaWeek',
-                    minTime: '08:00:00',
-                    maxTime: '19:00:00',
-                    scrollTime: calculateScrollTime('08:00:00', '19:00:00'),
-                    slotDuration: '00:15:00',
-                    slotLabelInterval: '00:15:00',
-                    slotLabelFormat: 'H:mm',
-                    editable: true,
-                    eventDurationEditable: false,
-                    snapDuration: '00:15:00',
-                    eventLimit: true,
-                    displayEventTime: true,
-                    displayEventEnd: true,
-                    slotEventOverlap: false,
-                    eventBackgroundColor: '#37424c',
-                    defaultTimedEventDuration: '00:15:00',
-                    minDate: moment(Date.now()),
-                    eventClick: function(calEvent, jsEvent, view) {
-                        alert('ID: ' + calEvent.id);
-                    },
-                    events: appointments
+            prefs = [];
+            prefs["minHour"] = '08:00:00';
+            prefs["maxHour"] = '19:00:00';
+            prefs["slotDuration"] = '00:15:00';
+
+            var select = $('#select-doctor');
+
+            var calendar = $('#calendar');
+            calendar.fullCalendar('getCalendar');
+            calendar.fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay'
+                },
+                firstDay: dateNowInt(),
+                allDaySlot: false,
+                defaultDate: Date.now(),
+                lang: 'nl',
+                timeFormat: 'H:mm',
+                defaultView: 'agendaWeek',
+                minTime: prefs["minHour"],
+                maxTime: prefs["maxHour"],
+                scrollTime: calculateScrollTime(prefs["minHour"], prefs["maxHour"]),
+                slotDuration: prefs["slotDuration"],
+                slotLabelInterval: prefs["slotDuration"],
+                slotLabelFormat: 'H:mm',
+                editable: true,
+                eventDurationEditable: false,
+                snapDuration: prefs["slotDuration"],
+                eventLimit: true,
+                displayEventTime: true,
+                displayEventEnd: true,
+                slotEventOverlap: false,
+                eventBackgroundColor: '#37424c',
+                defaultTimedEventDuration: prefs["slotDuration"],
+                minDate: moment(Date.now()),
+                eventClick: function (calEvent, jsEvent, view) {
+                    alert('Start - End: ' + calEvent.start + " - " + calEvent.end);
+                }
+            });
+
+            loadData('http://localhost:8000/api/users/doctors', function (doctors) {
+                $.each(doctors, function (key, value) {
+                    select.append('<option value="' + value.id + '">' + value.name + " " + value.lastname + '</option>');
                 });
+                loadAppointments(select.val());
             });
 
-            calendar.on('dayClick', function(date, jsEvent, view) {
-                var newEvent = new Object();
-
-                newEvent.title = "";
-                newEvent.start = date;
-                $('#calendar').fullCalendar( 'renderEvent', newEvent );
+            select.on('change', function () {
+                loadAppointments($(this).val());
             });
+
+            function loadAppointments(doctorId) {
+                loadData('http://localhost:8000/api/doctors/' + doctorId + '/appointments/open', function (appointments) {
+                    console.log(appointments);
+                    $('#preloader').hide();
+
+                    calendar.fullCalendar('removeEvents');
+                    calendar.fullCalendar('addEventSource', appointments);
+                    calendar.fullCalendar('refetchEvents');
+                });
+            }
 
         });
     </script>
