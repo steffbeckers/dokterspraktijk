@@ -36,14 +36,4 @@ class HomeController extends Controller
     	}
     }
 
-    /**
-    * @Route("/registreren", name="registreren")
-    */
-     public function registerAction()
-    {
-        return $this->render('Home/register.html.twig', array(
-            // ...
-        ));
-    }
-
 }

@@ -10,7 +10,7 @@ class AfspraakControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/afspraak');
+        $crawler = $client->request('GET', '/afspraak-maken');
     }
 
 }
