@@ -19,7 +19,7 @@ class AppointmentController extends Controller
             return $this->render('Afspraak/showCalendar.html.twig');
         } else 
         {
-            return $this->render('Home/login.html.twig');
+            return $this->render('Profile/showDoctors.html.twig');
         }
         
     }
