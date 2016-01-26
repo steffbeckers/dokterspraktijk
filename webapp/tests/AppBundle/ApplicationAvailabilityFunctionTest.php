@@ -10,7 +10,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     /**
      * @dataProvider urlProvider
      */
-    public function testPageIsSuccessful($url)
+    public function testPageIsSuccessfulNotLoggedIn($url)
     {
         $client = self::createClient();
         $client->request('GET', $url);
@@ -29,4 +29,32 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/login'),
         );
     }
+
+    /**
+    * @dataProvider urlLoginProvider
+    */
+    public function testPageIsSuccessfulLoggedInUser($url)
+    {
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'yannick',
+            'PHP_AUTH_PW'   => '123456',
+        ));
+
+        $client->request('GET', $url);
+
+        $this->assertTrue($client->getResponse()->isSuccessful());
+    }
+
+    public function urlLoginProvider()
+    {
+        return array(
+            array('/'),
+            array('/afspraak-maken'),
+            array('/contact'),
+            array('/aanmelden'),
+            array('/meettheteam'),
+            array('/login'),
+        );
+    }
+
 }
