@@ -17,7 +17,7 @@ services:
             - { name: form.type, alias: app_user_profile }
     app.profile.edit:
         class: AppBundle\EventListener\ProfileEditSucces
-        arguments: [@router]
+        arguments: ['@router']
         tags:
             - { name: kernel.event_subscriber }
     app.registration.comfermed:
@@ -27,6 +27,6 @@ services:
                 - { name: kernel.event_subscriber }
     app.changepassword.change:
         class: AppBundle\EventListener\ChangePasswordSucces
-        arguments: [@router]
+        arguments: ['@router']
         tags:
-            - { name: kernel.event_subscriber }      
+            - { name: kernel.event_subscriber }
