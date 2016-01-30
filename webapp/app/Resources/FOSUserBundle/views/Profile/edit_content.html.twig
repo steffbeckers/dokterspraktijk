@@ -22,7 +22,7 @@
 
                                     <h6>Verander uw foto</h6>
                                     <span class="btn btn-default btn-file">
-                                        Browse <input type="file" name="imgeFile" id="imgeFile">
+                                        Browse <input type="file" name="imgeFile" id="imgeFile" accept="image/x-png, image/gif, image/jpeg" data-max-size="512">
                                     </span>
                                 </div>
 
@@ -113,39 +113,27 @@
                                         autoclose: true
                                     })
                         });
-                        $("#imgeFile").click(function(){
-                            $('#imgeFile').change(function() {
-                                /*var filename = $('#imgeFile').val();
-
-                                var img = $('#imgeFile').attr("files")[0];
-
-                                $type = pathinfo(filename, PATHINFO_EXTENSION);
-                                $data = file_get_contents(filename);
-                                $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                                $("#fos_user_profile_form_img").val();*/
-                                /*var c = document.getElementById("myCanvas");
-                                var ctx = c.getContext("2d");
-                                var img = document.getElementById("foto1");
-                                ctx.drawImage(img,20,20);
-                                alert(c.toDataURL());*/
-                            });
-                        });
                         document.getElementById("imgeFile").onchange = function () {
+                            var fileInput = $('#imgFile');
+                            var maxSize = fileInput.data('max-size');
+
                             var reader = new FileReader();
 
                             reader.onload = function (e) {
                                 // get loaded data and render thumbnail.
-                                document.getElementById("foto1").src = e.target.result;
-                                document.getElementById("fos_user_profile_form_img").value = e.target.result;
+                                var maxChar = 688890;
+                                if (e.target.result.length > maxChar){
+                                    alert('file size is more then 500 Kb');
+                                } else {
+                                    document.getElementById("foto1").src = e.target.result;
+                                    document.getElementById("fos_user_profile_form_img").value = e.target.result;
+                                }
                             };
 
                             // read the image file as a data URL.
 
                             reader.readAsDataURL(this.files[0]);
-
                         };
-
-
                     </script>
                 </div>
             </div>
