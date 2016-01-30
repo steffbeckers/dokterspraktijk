@@ -13,9 +13,14 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
+        $securityContext = $this->container->get('security.context');
+        if( $securityContext->isGranted('ROLE_ADMIN')) {
+            return $this->redirect('/admin');
+        } else {
         return $this->render('Home/index.html.twig', array(
             // ...
         ));
+        }   
     }
 
     /**
@@ -45,5 +50,6 @@ class HomeController extends Controller
             // ...
         ));
     }
+
 
 }

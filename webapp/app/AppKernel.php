@@ -26,7 +26,9 @@ class AppKernel extends Kernel
             new ApiBundle\ApiBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Gregwar\CaptchaBundle\GregwarCaptchaBundle()
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
