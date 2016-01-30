@@ -104,6 +104,17 @@
                                         {% endif %}
                                     </div>
                                 </div>
+                                <div class="form-group" hidden>
+                                    {{ form_label(form.img, 'img', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                    <div class="col-sm-8">
+                                        {{ form_widget(form.img, { 'attr': {'value': '', 'class' : 'form-control'} }) }}
+                                        {% if form_errors(form.img) %}
+                                        <p>
+                                            <div class="alert alert-danger">{{ form_errors(form.name) }}</div>
+                                        </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

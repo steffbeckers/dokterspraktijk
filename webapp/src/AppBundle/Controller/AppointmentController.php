@@ -19,9 +19,11 @@ class AppointmentController extends Controller
             return $this->render('Afspraak/showCalendar.html.twig');
         } else 
         {
-            return $this->render('Profile/showDoctors.html.twig');
-        }
-        
-    }
+            $userManager = $this->get('fos_user.user_manager');
+            $users = $userManager->findUsers();
 
+            return $this->render('Profile/showDoctors.html.twig', array('users' => $users));
+        }
+
+    }
 }

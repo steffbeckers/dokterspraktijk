@@ -18,7 +18,11 @@
                     <form action="">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Stuur ons een e-mail
+                                {% if is_granted("ROLE_DOCTOR") == true %}
+                                    Stuur de admin een e-mail
+                                {% else %}
+                                    Stuur ons een e-mail
+                                {% endif %}
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">

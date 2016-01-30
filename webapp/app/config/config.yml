@@ -93,6 +93,10 @@ fos_user:
 
 gregwar_captcha: ~
 
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine
+
 fos_rest:
     param_fetcher_listener: true
     body_listener: true

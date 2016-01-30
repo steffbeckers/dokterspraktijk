@@ -10,5 +10,3 @@ parameters:
     mailer_user: praktijkdokter@gmail.com
     mailer_password: School1234
     secret: 1d2006930019fa3ec9641c1344a94de1655ec1eb
-
-    appSettings.name: Dokterspraktijk
