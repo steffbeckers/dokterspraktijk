@@ -60,6 +60,7 @@
                             {% render url('fos_user_security_login') %}
                         </div>
                     </div>
+                    {% elseif is_granted("ROLE_DOCTOR") == true %}
 
                 {% else %}
                     <div class="col-md-12">

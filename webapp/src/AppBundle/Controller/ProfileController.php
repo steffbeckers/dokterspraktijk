@@ -30,7 +30,7 @@ class ProfileController extends Controller
             return $this->render('Profile/updateUser.html.twig', array(
                 'user' => $user,));
         } else if ($securityContext->isGranted('ROLE_DOCTOR')) {
-            return $this->render('Profile/updateUser.html.twig', array(
+            return $this->render('Profile/updateDoctor.html.twig', array(
                 'user' => $user,));
         } else {
             return $this->render('Home/login.html.twig');
