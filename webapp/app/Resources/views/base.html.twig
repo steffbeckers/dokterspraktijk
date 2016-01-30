@@ -36,7 +36,11 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li {% if app.request.get('_route') == 'homepage' %} class="active" {% endif %}><a href="/">Startpagina</a></li>
-                    <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}><a href="/afspraak-maken">Afspraak maken</a></li>
+                    {% if is_granted("ROLE_USER") %}
+                        <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}><a href="/afspraak-maken">Afspraak maken</a></li>
+                    {% else %}
+                        <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}><a href="/afspraak-maken">Dokters</a></li>
+                    {% endif %}
                     <li {% if app.request.get('_route') == 'contact' %} class="active" {% endif %}><a href="/contact">Contact</a></li>
                     {% if is_granted("ROLE_USER") %}
                     <li class="dropdown">

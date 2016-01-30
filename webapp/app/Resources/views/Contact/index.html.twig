@@ -32,8 +32,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email">E-mailadres</label>
-                                    <input type="email" name="email" class="form-control"
+                                    {% if is_granted("ROLE_USER") %}
+                                        <input type="email" name="email" class="form-control"
                                            value="{{ app.user.emailCanonical }}" required/>
+                                    {% else %}
+                                        <input type="email" name="email" class="form-control"
+                                               placeholder="Uw e-mailadres" required/>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
                                     <label for="subject">Onderwerp</label>

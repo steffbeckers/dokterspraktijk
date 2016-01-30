@@ -367,6 +367,9 @@ footer .copy {
     #myNavbar{
         text-align: center;
     }
+    .img-responsive{
+        max-width: 20%;
+    }
 }
 
 .btn-file {
