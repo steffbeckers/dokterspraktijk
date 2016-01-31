@@ -93,9 +93,29 @@ class AppointmentsController extends FOSRestController
     }
 
     /**
-     * @Post("/appointments")
+     * @Post("/appointments/{id}")
      */
-    public function postAppointmentAction(Request $request){
+    public function postAppointmentUpdateAction(Request $request, $id)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $appointment = $this->getDoctrine()->getRepository('AppBundle:Appointment')->find($id);
+
+        $appointment->setPatientid($data['patientId']);
+        $appointment->setPatientname($data['patientName']);
+        $appointment->setMessage($data['patientMessage']);
+        $appointment->setOccupied(1);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($appointment);
+        $em->flush();
+
+        $view = $this->view($appointment, 202);
+        return $this->handleView($view);
+    }
+
+    public function postAppointmentAction(Request $request)
+    {
         $data = json_decode($request->getContent(), true);
 
         $appointment = new Appointment();
@@ -112,25 +132,8 @@ class AppointmentsController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $em->persist($appointment);
         $em->flush();
+
+        $view = $this->view($appointment, 201);
+        return $this->handleView($view);
     }
-
-    /**
-     * @Post("/appointments/{id}")
-     */
-    public function postAppointmentUpdateAction(Request $request, $id){
-
-        $data = json_decode($request->getContent(), true);
-
-        $appointment = $this->getDoctrine()->getRepository('AppBundle:Appointment')->find($id);
-
-        $appointment->setPatientid($data['patientId']);
-        $appointment->setPatientname($data['patientName']);
-        $appointment->setMessage($data['message']);
-        $appointment->setOccupied(1);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($appointment);
-        $em->flush();
-    }
-
 }

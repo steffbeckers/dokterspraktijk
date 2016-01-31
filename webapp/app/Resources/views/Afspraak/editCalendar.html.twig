@@ -12,14 +12,14 @@
     {% block breadcrumbs %}
         <ul class="breadcrumb">
             <li>
-                <a href="{{ path(app.request.attributes.get('_route'))}}">
+                <a href="{{ path(app.request.attributes.get('_route')) }}">
                     Afspraak maken
                 </a>
             </li>
         </ul>
     {% endblock %}
 {% block body %}
-    
+
     <section>
         <div class="container">
             <div class="row">
@@ -76,7 +76,9 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img class="center-block margin10" id="preloader" src="{{ asset('preloader1.gif') }}"/>
+                                    <img class="center-block margin10" id="preloader"
+                                         src="{{ asset('preloader1.gif') }}"/>
+
                                     <div id="calendar"></div>
                                 </div>
                             </div>
@@ -112,12 +114,24 @@
                 url: url,
                 dataType: 'json',
                 type: 'get',
-                success: function(data) {
+                success: function (data) {
                     callback(data);
                 }
             })
         }
-
+        /*
+         function updateAppointment($id, callback) {
+         $.ajax({
+         url: 'http://localhost:8000/api/appointments/' + $id,
+         data:
+         dataType: 'json',
+         type: 'post',
+         success: function(data) {
+         callback(data);
+         }
+         })
+         }
+         */
         $(document).ready(function () {
 
             prefs = [];
@@ -127,8 +141,8 @@
 
             var select = $('#select-doctor');
             var previousClick = null;
-            var calendar = $('#calendar');
 
+            var calendar = $('#calendar');
             calendar.fullCalendar('getCalendar');
             calendar.fullCalendar({
                 header: {
@@ -159,17 +173,31 @@
                 defaultTimedEventDuration: prefs["slotDuration"],
                 minDate: moment(Date.now()),
                 eventClick: function (calEvent, jsEvent, view) {
-                    if(previousClick != calEvent && previousClick != null) {
+                    /*alert('#ID Start - End: #'+ calEvent.id + " " + calEvent.start + " - " + calEvent.end);
+                     $('a.fc-event').each(function(){
+                     if($(this).css('background-color').toLowerCase() == 'rgb(24, 188, 156)'){
+                     $(this).css('background-color', 'rgb(26, 36, 47)');
+                     }
+                     });*/
+
+                    /*$('a.fc-event').each(function() {
+                     console.log(this);
+                     $(this).css("backgroundColor", "rgb(26, 36, 47)");
+                     });*/
+
+                    if (previousClick != calEvent && previousClick != null) {
                         previousClick.backgroundColor = "rgb(26, 36, 47)";
                     }
+
                     previousClick = calEvent;
                     calEvent.backgroundColor = "rgb(24, 188, 156)";
                     calendar.fullCalendar('rerenderEvents');
+
                     $("input[id=appointmentId]").val(calEvent.id);
                     $("#dateAndTime").html("<i class=\"fa fa-calendar\" /> &nbsp;" + moment(calEvent.start).format('DD MMMM YYYY') + "<br /><i class=\"fa fa-clock-o\" /> &nbsp;" + moment(calEvent.start).format('H:mm') + " - " + moment(calEvent.end).format('H:mm'));
                     $("#location").html("<i class=\"fa fa-location-arrow\" /> &nbsp;" + calEvent.room);
                 },
-                loading: function(bool) {
+                loading: function (bool) {
                     if (bool) $('#preloader').show();
                     else $('#preloader').hide();
                 }
@@ -197,6 +225,14 @@
                     "patientMessage": $('#message').val()
                 };
 
+                console.log(appointment);
+
+                /*
+                 $.post("http://localhost:8000/api/appointments/" + appointmentId,
+                 { patientId: 1, patientName: "Steff", message: "TESTTT" }
+                 );
+                 */
+
                 $.ajax({
                     url: "http://localhost:8000/api/appointments/" + $("input[id=appointmentId]").val(),
                     type: 'post',
@@ -207,7 +243,7 @@
                     },
                     data: JSON.stringify(appointment),
                     success: function (msg) {
-
+                        $("#results").append("The result = " + msg);
                     }
                 });
 
