@@ -110,3 +110,21 @@ fos_rest:
         default_engine: twig
     routing_loader:
         default_format: json
+easy_admin:
+    design:
+        assets:
+            favicon: '/web/favicon1.png'
+    entities: 
+        User:
+            label: 'Gebruikers'
+            class: AppBundle\Entity\User
+            list:
+                fields: ['username','name', 'lastname','email', 'enabled', 'roles']
+            edit:
+                fields: ['username','name', 'lastname','email', 'enabled', 'roles']
+            new:
+                fields: ['username','name', 'lastname','email', 'enabled', 'roles']
+        Appointment:
+            label: 'Afspraken'
+            class: AppBundle\Entity\Appointment
+    site_name: 'Dokterspraktijk'

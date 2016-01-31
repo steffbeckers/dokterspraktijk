@@ -1,0 +1,17 @@
+{# app/Resources/views/easy_admin/list.html.twig #}
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+{% block user_menu %}
+    <span class="sr-only">{{ 'user.logged_in_as'|trans(domain = 'EasyAdminBundle') }}</span>
+    <i class="hidden-xs fa fa-user"></i>
+    {% if app.user %}
+        {{ app.user.username|default('user.unnamed'|trans(domain = 'EasyAdminBundle')) }}
+    {% else %}
+        {{ 'user.anonymous'|trans(domain = 'EasyAdminBundle') }}
+    {% endif %}
+    <li>
+    	<a href="/logout" style="color:white;">Logout</a>
+    </li>
+{% endblock user_menu %}
+
+
+{# ... #}

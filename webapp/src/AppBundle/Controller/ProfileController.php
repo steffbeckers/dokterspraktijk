@@ -23,10 +23,19 @@ class ProfileController extends Controller
      */
     public function updateUserAction()
     {
-         $user = $this->getUser();
-        return $this->render('Profile/updateUser.html.twig', array(
-            'user' => $user,
-        ));
+        $securityContext = $this->container->get('security.context');
+        $user = $this->getUser();
+
+        if( $securityContext->isGranted('ROLE_USER')){
+            return $this->render('Profile/updateUser.html.twig', array(
+                'user' => $user,));
+        } else if ($securityContext->isGranted('ROLE_DOCTOR')) {
+            return $this->render('Profile/updateUser.html.twig', array(
+                'user' => $user,));
+        } else {
+            return $this->render('Home/login.html.twig');
+        }
+
     }
 
     /**

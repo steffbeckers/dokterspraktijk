@@ -26,6 +26,7 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
+                login_path: /aanmelden
                 csrf_token_generator: security.csrf.token_manager
                 failure_path: aanmelden
                 # if you are using Symfony < 2.8, use the following config instead:
@@ -37,6 +38,7 @@ security:
                 secret:   '%secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
+                name: dokter_rememberme
 
             # activate different ways to authenticate
 
