@@ -72,7 +72,7 @@ class Appointment
     /**
      * @var bool
      *
-     * @ORM\Column(name="occupied", type="boolean")
+     * @ORM\Column(name="occupied", type="integer")
      */
     private $occupied;
 
@@ -293,9 +293,9 @@ class Appointment
     /**
      * Set occupied
      *
-     * @param boolean $occupied
+     * @param int $occupied
      *
-     * @return Appointment
+     * @return integer
      */
     public function setOccupied($occupied)
     {
@@ -307,7 +307,7 @@ class Appointment
     /**
      * Get occupied
      *
-     * @return boolean
+     * @return integer
      */
     public function getOccupied()
     {
