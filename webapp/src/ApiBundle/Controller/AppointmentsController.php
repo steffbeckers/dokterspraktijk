@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use JMS\Serializer\SerializationContext;
 use DateTime;
 
@@ -52,7 +53,15 @@ class AppointmentsController extends FOSRestController
 
     public function getDoctorAppointmentsOpenAction($id)
     {
-        $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('doctorid' => $id, 'occupied' => 0));
+        //$appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('doctorid' => $id, 'occupied' => 0));
+
+        $query = $this->getDoctrine()->getEntityManager()
+            ->createQuery('SELECT a FROM AppBundle:Appointment a WHERE a.doctorid = :docId AND a.occupied = :occupied AND a.start >= :dateNow')
+            ->setParameter('docId', $id)
+            ->setParameter('occupied', 0)
+            ->setParameter('dateNow', date("Y-m-d H:i:s"));
+
+        $appointments = $query->getResult();
 
         if (false === $appointments) {
             throw $this->createNotFoundException("Appointments not found.");
@@ -131,4 +140,20 @@ class AppointmentsController extends FOSRestController
         $view = $this->view($appointment, 201);
         return $this->handleView($view);
     }
+
+    /**
+     * @Delete("/appointments/{id}")
+     */
+    public function deleteAppointmentAction($id)
+    {
+        $appointment = $this->getDoctrine()->getRepository('AppBundle:Appointment')->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($appointment);
+        $em->flush();
+
+        $view = $this->view($appointment, 202);
+        return $this->handleView($view);
+    }
+
 }

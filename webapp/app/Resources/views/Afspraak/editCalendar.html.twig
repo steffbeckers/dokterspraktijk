@@ -13,7 +13,7 @@
         <ul class="breadcrumb">
             <li>
                 <a href="{{ path(app.request.attributes.get('_route')) }}">
-                    Afspraak maken
+                    Afspraken beheren
                 </a>
             </li>
         </ul>
@@ -23,62 +23,24 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
-                    <section class="panel panel-default">
-                        <div class="panel-heading">
-                            Afspraak
-                        </div>
-                        <div class="panel-body">
-                            <!--<form onsubmit="" class="form-horizontal appointment-form">-->
-                            <div class="form-group">
-                                <label class="control-label" for="select-doctor"> Dokter</label>
-                                <select class="form-control" id="select-doctor"></select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="name"> Naam patiënt</label>
-                                <input id="userId" type="hidden" value="{{ app.user.id }}"/>
-                                <input type="text" class="form-control" id="name"
-                                       value="{{ app.user.name | capitalize }} {{ app.user.lastname | capitalize }}"
-                                       placeholder="Naam patiënt"/>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Datum en tijd</label>
-
-                                <p id="dateAndTime" style="margin-bottom: 0px;">Selecteer een datum en tijd in de
-                                    agenda.</p>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Locatie</label>
-
-                                <p id="location" style="margin-bottom: 0px;">Selecteer een datum en tijd in de
-                                    agenda.</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="textArea" class="control-label">Reden van consultatie</label>
-                                <textarea class="form-control" rows="3" id="message"
-                                          placeholder="Reden van consultatie"></textarea>
-                            </div>
-                            <div class="form-group" style="margin-bottom: 0px;">
-                                <button type="submit" id="createAppointment" href="#" class="btn btn-primary btn-wide">
-                                    Afspraak maken
-                                </button>
-                            </div>
-                            <input id="appointmentId" type="hidden" value=""/>
-                            <!--</form>-->
-                        </div>
-                    </section>
-                </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <section id="calendar-panel" class="panel panel-default">
                         <div class="panel-heading">
                             Agenda
                         </div>
                         <div class="panel-body">
                             <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="room">Locatie</label>
+                                        <input name="room" class="form-control" id="room" type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
                                     <img class="center-block margin10" id="preloader"
                                          src="{{ asset('preloader1.gif') }}"/>
-
                                     <div id="calendar"></div>
                                 </div>
                             </div>
@@ -90,25 +52,6 @@
     </section>
     <script type="text/javascript">
 
-        function calculateScrollTime(minTime, maxTime) {
-            var min = moment(minTime, 'HH:mm').format('HH:mm');
-            var max = moment(maxTime, 'HH:mm').format('HH:mm');
-            var now = moment(Date.now()).format('HH:mm');
-            console.log("min: " + min + " max: " + max + " now: " + now);
-            if (now >= max) {
-                console.log("GROTER");
-                return min;
-            } else {
-                console.log("KLEINER");
-                return now;
-            }
-        }
-
-        function dateNowInt() {
-            var d = new Date();
-            return d.getDay();
-        }
-
         function loadData(url, callback) {
             $.ajax({
                 url: url,
@@ -119,28 +62,13 @@
                 }
             })
         }
-        /*
-         function updateAppointment($id, callback) {
-         $.ajax({
-         url: 'http://localhost:8000/api/appointments/' + $id,
-         data:
-         dataType: 'json',
-         type: 'post',
-         success: function(data) {
-         callback(data);
-         }
-         })
-         }
-         */
+
         $(document).ready(function () {
 
             prefs = [];
             prefs["minHour"] = '08:00';
             prefs["maxHour"] = '19:00';
             prefs["slotDuration"] = '00:15';
-
-            var select = $('#select-doctor');
-            var previousClick = null;
 
             var calendar = $('#calendar');
             calendar.fullCalendar('getCalendar');
@@ -150,7 +78,7 @@
                     center: 'title',
                     right: 'agendaWeek,agendaDay'
                 },
-                firstDay: dateNowInt(),
+                firstDay: 1,
                 allDaySlot: false,
                 defaultDate: Date.now(),
                 lang: 'nl',
@@ -159,7 +87,7 @@
                 defaultView: 'agendaWeek',
                 minTime: prefs["minHour"],
                 maxTime: prefs["maxHour"],
-                scrollTime: calculateScrollTime(prefs["minHour"], prefs["maxHour"]),
+                scrollTime: prefs["minHour"],
                 slotDuration: prefs["slotDuration"],
                 slotLabelInterval: prefs["slotDuration"],
                 slotLabelFormat: 'HH:mm',
@@ -172,94 +100,68 @@
                 eventBackgroundColor: 'rgb(26, 36, 47)',
                 defaultTimedEventDuration: prefs["slotDuration"],
                 minDate: moment(Date.now()),
-                eventClick: function (calEvent, jsEvent, view) {
-                    /*alert('#ID Start - End: #'+ calEvent.id + " " + calEvent.start + " - " + calEvent.end);
-                     $('a.fc-event').each(function(){
-                     if($(this).css('background-color').toLowerCase() == 'rgb(24, 188, 156)'){
-                     $(this).css('background-color', 'rgb(26, 36, 47)');
-                     }
-                     });*/
-
-                    /*$('a.fc-event').each(function() {
-                     console.log(this);
-                     $(this).css("backgroundColor", "rgb(26, 36, 47)");
-                     });*/
-
-                    if (previousClick != calEvent && previousClick != null) {
-                        previousClick.backgroundColor = "rgb(26, 36, 47)";
-                    }
-
-                    previousClick = calEvent;
-                    calEvent.backgroundColor = "rgb(24, 188, 156)";
-                    calendar.fullCalendar('rerenderEvents');
-
-                    $("input[id=appointmentId]").val(calEvent.id);
-                    $("#dateAndTime").html("<i class=\"fa fa-calendar\" /> &nbsp;" + moment(calEvent.start).format('DD MMMM YYYY') + "<br /><i class=\"fa fa-clock-o\" /> &nbsp;" + moment(calEvent.start).format('H:mm') + " - " + moment(calEvent.end).format('H:mm'));
-                    $("#location").html("<i class=\"fa fa-location-arrow\" /> &nbsp;" + calEvent.room);
-                },
                 loading: function (bool) {
                     if (bool) $('#preloader').show();
                     else $('#preloader').hide();
+                },
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    var appointment = new Object();
+                    appointment.title = null;
+                    appointment.start = start;
+                    appointment.end = end;
+                    appointment.doctorId = {{ app.user.id }};
+                    appointment.room = $('#room').val();
+
+                    calendar.fullCalendar('renderEvent',
+                            {
+                                title: appointment.title,
+                                start: appointment.start,
+                                end: appointment.end
+                            },
+                            true
+                    );
+
+                    $.ajax({
+                        url: "http://localhost:8000/api/appointments",
+                        type: 'post',
+                        dataType: "json",
+                        processData: false,
+                        beforeSend: function (request) {
+                            request.setRequestHeader("Content-Type", "application/json");
+                        },
+                        data: JSON.stringify(appointment),
+                        success: function (msg) {
+                            //$("#results").append("The result = " + msg);
+                        }
+                    });
+
+                    calendar.fullCalendar('unselect');
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    $.ajax({
+                        url: "http://localhost:8000/api/appointments/" + calEvent._id,
+                        type: 'delete',
+                        dataType: "json",
+                        processData: false,
+                        beforeSend: function (request) {
+                            request.setRequestHeader("Content-Type", "application/json");
+                        },
+                        success: function (msg) {
+                            //$("#results").append("The result = " + msg);
+                        }
+                    });
+
+                    calendar.fullCalendar('removeEvents', calEvent._id);
+                    calendar.fullCalendar('rerenderEvents');
                 }
             });
 
-            calendar.on('dayClick', function(date, jsEvent, view) {
-                var newEvent = new Object();
-                newEvent.title = null;
-                newEvent.start = date;
-                $('#calendar').fullCalendar('renderEvent', newEvent);
-            });
-
-            loadData('http://localhost:8000/api/users/doctors', function (doctors) {
-                $.each(doctors, function (key, value) {
-                    select.append('<option value="' + value.id + '">' + value.name + " " + value.lastname + '</option>');
-                });
-                loadAppointments(select.val());
-            });
-
-            select.on('change', function () {
-                $("#dateAndTime").html("Selecteer een datum en tijd in de agenda.");
-                $("input[id=appointmentId]").val();
-                loadAppointments($(this).val());
-            });
-
-            $('#createAppointment').on('click', function () {
-                var appointment = null;
-
-                appointment = {
-                    "patientId": $('#userId').val(),
-                    "patientName": $('#name').val(),
-                    "patientMessage": $('#message').val()
-                };
-
-                console.log(appointment);
-
-                /*
-                 $.post("http://localhost:8000/api/appointments/" + appointmentId,
-                 { patientId: 1, patientName: "Steff", message: "TESTTT" }
-                 );
-                 */
-
-                $.ajax({
-                    url: "http://localhost:8000/api/appointments/" + $("input[id=appointmentId]").val(),
-                    type: 'post',
-                    dataType: "json",
-                    processData: false,
-                    beforeSend: function (request) {
-                        request.setRequestHeader("Content-Type", "application/json");
-                    },
-                    data: JSON.stringify(appointment),
-                    success: function (msg) {
-                        $("#results").append("The result = " + msg);
-                    }
-                });
-
-                loadAppointments(select.val())
-            });
+            loadAppointments({{ app.user.id }});
 
             function loadAppointments(doctorId) {
                 loadData('http://localhost:8000/api/doctors/' + doctorId + '/appointments/open', function (appointments) {
-                    console.log(appointments);
                     $('#preloader').hide();
 
                     calendar.fullCalendar('removeEvents');
