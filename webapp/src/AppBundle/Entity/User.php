@@ -66,9 +66,9 @@ class User extends BaseUser
     /**
      * @var TEXT $img
      *
-     * @ORM\Column(name="img", type="text")
+     * @ORM\Column(name="img", type="text", nullable=true)
      */
-    protected $img;
+    protected $img = null;
 
 
     public function __construct()
