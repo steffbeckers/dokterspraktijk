@@ -128,3 +128,7 @@ easy_admin:
             label: 'Afspraken'
             class: AppBundle\Entity\Appointment
     site_name: 'Dokterspraktijk'
+
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine

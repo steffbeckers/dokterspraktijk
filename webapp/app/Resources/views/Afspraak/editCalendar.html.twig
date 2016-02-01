@@ -203,6 +203,13 @@
                 }
             });
 
+            calendar.on('dayClick', function(date, jsEvent, view) {
+                var newEvent = new Object();
+                newEvent.title = null;
+                newEvent.start = date;
+                $('#calendar').fullCalendar('renderEvent', newEvent);
+            });
+
             loadData('http://localhost:8000/api/users/doctors', function (doctors) {
                 $.each(doctors, function (key, value) {
                     select.append('<option value="' + value.id + '">' + value.name + " " + value.lastname + '</option>');

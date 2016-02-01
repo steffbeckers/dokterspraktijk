@@ -64,7 +64,7 @@ class AppointmentsController extends FOSRestController
         }
 
         $view = $this->view($appointments, 200);
-        $view->setSerializationContext(SerializationContext::create()->setGroups(array('appointmentsList')));
+        //$view->setSerializationContext(SerializationContext::create()->setGroups(array('appointmentsList')));
         return $this->handleView($view);
     }
 

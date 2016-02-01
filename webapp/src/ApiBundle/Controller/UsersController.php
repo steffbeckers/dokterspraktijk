@@ -31,13 +31,12 @@ class UsersController extends FOSRestController
 
         $doctors = $query->getResult();
 
-
         if (false === $doctors) {
             throw $this->createNotFoundException("No found.");
         }
 
         $view = $this->view($doctors, 200);
-        $view->setSerializationContext(SerializationContext::create()->setGroups(array('doctorList')));
+        //$view->setSerializationContext(SerializationContext::create()->setGroups(array('doctorList')));
         return $this->handleView($view);
     }
 
