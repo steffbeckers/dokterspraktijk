@@ -27,6 +27,7 @@
                 {% for user in users %}
                     {% for role in user.roles %}
                         {% if role == 'ROLE_DOCTOR' %}
+
                             <div class="col-sm-12 col-md-6">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
@@ -34,46 +35,36 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-3 col-lg-3 " align="center">
-                                                {% if user.img == "" %}
-                                                    <img alt="User Pic"
-                                                         src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+                                            <div class="col-md-3 col-lg-3 col-xs-12" align="center" style="margin-bottom: 20px">
+                                                {% if user.img != null %}
+                                                    <img alt="Profiel foto" src="{{ user.img }}"
                                                          class="img-circle img-responsive">
                                                 {% else %}
-                                                    <img alt="User Pic" src="{{ user.img }}"
+                                                    <img alt="Profiel foto"
+                                                         src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
                                                          class="img-circle img-responsive">
                                                 {% endif %}
                                             </div>
                                             <div class=" col-md-9 col-lg-9 ">
-                                                <table class="table table-user-information">
-                                                    <tbody>
-                                                    <tr>
-                                                    <tr>
-                                                        <td>Geslacht:</td>
-                                                        <td>Man</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lokaal:</td>
-                                                        <td>Lokaal 1</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Email:</td>
-                                                        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                                                    </tr>
-                                                    <td>Phone Number:</td>
-                                                    <td>012 / 34 56 78</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Geslacht:</span> Man</label>
+                                                </div>
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">lokaal:</span> B214</label>
+                                                </div>
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Email:</span> <a href="mailto:{{ user.email }}">{{ user.email }}</a></label>
+                                                </div>
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Telefoon:</span> 012 / 34 56 78</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         {% endif %}
                     {% endfor %}
-
                     <!-- repeat for dokter in dokters -->
                 {% endfor %}
                 <!-- end repeat -->
