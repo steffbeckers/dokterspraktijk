@@ -33,7 +33,7 @@ class UsersController extends FOSRestController
         }
 
         $view = $this->view($doctors, 200);
-        //$view->setSerializationContext(SerializationContext::create()->setGroups(array('doctorList')));
+        $view->setSerializationContext(SerializationContext::create()->setGroups(array('doctorList')));
         return $this->handleView($view);
     }
 

@@ -25,7 +25,7 @@ class AppointmentsController extends FOSRestController
         return $this->handleView($view);
     }
 
-    
+
     public function getAppointmentsOpenAction()
     {
         $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('occupied' => 0));
@@ -59,7 +59,7 @@ class AppointmentsController extends FOSRestController
         }
 
         $view = $this->view($appointments, 200);
-        //$view->setSerializationContext(SerializationContext::create()->setGroups(array('appointmentsList')));
+        $view->setSerializationContext(SerializationContext::create()->setGroups(array('appointmentsList')));
         return $this->handleView($view);
     }
 
@@ -87,7 +87,9 @@ class AppointmentsController extends FOSRestController
         return $this->handleView($view);
     }
 
-
+    /**
+     * @Post("/appointments/{id}")
+     */
     public function postAppointmentUpdateAction(Request $request, $id)
     {
         $data = json_decode($request->getContent(), true);

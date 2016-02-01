@@ -22,19 +22,21 @@
 
                                     <h6>Verander uw foto</h6>
                                     <span class="btn btn-default btn-file">
-                                        Browse <input type="file" name="imgeFile" id="imgeFile" accept="image/x-png, image/gif, image/jpeg" data-max-size="512">
+                                        Browse <input type="file" name="imgeFile" id="imgeFile"
+                                                      accept="image/x-png, image/gif, image/jpeg" data-max-size="512">
                                     </span>
+
                                     <div class="form-group" style="visibility:hidden;">
-                                            {{ form_label(form.img, 'Profiel foto', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-                                            <div class="col-sm-8">
-                                                {{ form_widget(form.img, { 'attr': {'class': 'form-control'} }) }}
-                                                {{ form_errors(form.img) }}
-                                            </div>
+                                        {{ form_label(form.img, 'Profiel foto', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                        <div class="col-sm-8">
+                                            {{ form_widget(form.img, { 'attr': {'class': 'form-control'} }) }}
+                                            {{ form_errors(form.img) }}
                                         </div>
+                                    </div>
                                 </div>
 
                                 <div class=" col-md-9 col-lg-9 ">
-                                        
+
                                     <div class="form-group">
                                         {{ form_label(form.name, 'Voornaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
                                         <div class="col-sm-8">
@@ -123,7 +125,7 @@
                             reader.onload = function (e) {
                                 // get loaded data and render thumbnail.
                                 var maxChar = 688890;
-                                if (e.target.result.length > maxChar){
+                                if (e.target.result.length > maxChar) {
                                     alert('file size is more then 500 Kb');
                                 } else {
                                     document.getElementById("foto1").src = e.target.result;
@@ -138,6 +140,6 @@
                     </script>
                 </div>
             </div>
-            </div>
+        </div>
     </section>
 {% endblock %}

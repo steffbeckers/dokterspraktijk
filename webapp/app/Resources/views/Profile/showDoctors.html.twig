@@ -36,9 +36,12 @@
                                         <div class="row">
                                             <div class="col-md-3 col-lg-3 " align="center">
                                                 {% if user.img == "" %}
-                                                    <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">
+                                                    <img alt="User Pic"
+                                                         src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+                                                         class="img-circle img-responsive">
                                                 {% else %}
-                                                    <img alt="User Pic" src="{{ user.img }}" class="img-circle img-responsive">
+                                                    <img alt="User Pic" src="{{ user.img }}"
+                                                         class="img-circle img-responsive">
                                                 {% endif %}
                                             </div>
                                             <div class=" col-md-9 col-lg-9 ">
@@ -71,7 +74,7 @@
                         {% endif %}
                     {% endfor %}
 
-                <!-- repeat for dokter in dokters -->
+                    <!-- repeat for dokter in dokters -->
                 {% endfor %}
                 <!-- end repeat -->
             </div>
