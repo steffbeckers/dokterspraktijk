@@ -25,9 +25,7 @@ class AppointmentsController extends FOSRestController
         return $this->handleView($view);
     }
 
-    /**
-     * @Get("/appointments/open")
-     */
+    
     public function getAppointmentsOpenAction()
     {
         $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('occupied' => 0));

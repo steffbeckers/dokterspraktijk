@@ -13,7 +13,7 @@ class AdminControllerTest extends WebTestCase
 
 		$crawler = $client->request('GET', '/admin');
 
-		$this->assertTrue($client->getResponse()->isNotFound());
+		$this->assertEquals($client->getResponse()->getStatusCode(), "301");
 	}
 
 	public function testUserNotAdmin()
@@ -25,7 +25,7 @@ class AdminControllerTest extends WebTestCase
 
 		$crawler = $client->request('GET','/admin');
 
-		$this->assertTrue($client->getResponse()->isNotFound());
+		$this->assertEquals($client->getResponse()->getStatusCode(), "301");
 	}
 
 	public function testUserIsAdmin()
@@ -37,6 +37,6 @@ class AdminControllerTest extends WebTestCase
 
 		$crawler = $client->request('GET','/admin');
 
-		$this->assertTrue($client->getResponse()->isSuccessful());
+		$this->assertTrue($client->getResponse()->isRedirect());
 	}
 }

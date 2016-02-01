@@ -51,30 +51,19 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/'),
             array('/afspraak-maken'),
             array('/profiel-aanpassen'),
-            array('/profile/change-password'),
         );
     }
 
-    /**
-    * @dataProvidor urlAdminProvider
-    */
-    public function testPageIsSuccessfulLoggedInAdmin($url)
+    public function testPageIsSuccessfulLoggedInAdmin()
     {
         $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'admin',
             'PHP_AUTH_PW'   => 'admin',
         ));
 
-        $client->request('GET', $url);
+        $client->request('GET', "/admin");
 
-        $this->assertTrue($client->getResponse()->isSuccessful());
-    }
-
-    public function urlAdminProvider()
-    {
-        return array(
-            array('/admin'),
-        );
+        $this->assertTrue($client->getResponse()->isRedirect());
     }
 
 
