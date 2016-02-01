@@ -50,9 +50,6 @@ class AppointmentsController extends FOSRestController
         return $this->handleView($view);
     }
 
-    /**
-     * @Get("/doctors/{id}/appointments/open")
-     */
     public function getDoctorAppointmentsOpenAction($id)
     {
         $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('doctorid' => $id, 'occupied' => 0));
@@ -90,9 +87,7 @@ class AppointmentsController extends FOSRestController
         return $this->handleView($view);
     }
 
-    /**
-     * @Post("/appointments/{id}")
-     */
+
     public function postAppointmentUpdateAction(Request $request, $id)
     {
         $data = json_decode($request->getContent(), true);
