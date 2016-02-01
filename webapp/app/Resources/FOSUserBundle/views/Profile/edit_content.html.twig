@@ -10,65 +10,87 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Pas profiel aan</h3>
                         </div>
-							{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit form-horizontal' } }) }}
-							{{ form_errors(form)}}
-							   
-							  <div class="panel-body">
-							  	<div class=" col-md-12 col-lg-12 ">
-                                	<div class="form-group">
-                                    {{ form_label(form.name, 'Voornaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-	                                    <div class="col-sm-8">
-	                                        {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
-	                                        {{ form_errors(form.name) }}
-	                                    </div>
-                                	</div>
-                                	<div class="form-group">
-                                    {{ form_label(form.lastname, 'Achternaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-	                                    <div class="col-sm-8">
-	                                        {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
-	                                        {{ form_errors(form.lastname) }}
-	                                    </div>
-                                	</div>
-                                	<div class="form-group">
-                                    {{ form_label(form.username, 'Gebruikersnaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-	                                    <div class="col-sm-8">
-	                                        {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
-	                                        {{ form_errors(form.username) }}
-	                                    </div>
-                                	</div>
-                                	<div class="form-group">
-                                    {{ form_label(form.email, 'E-mailadres', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-	                                    <div class="col-sm-8">
-	                                        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
-	                                        {{ form_errors(form.email) }}
-	                                    </div>
-                                	</div>
-                                	 <div class="form-group">
-                                    {{ form_label(form.yearOfBirth, 'Geboortedatum', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-                                    <div class="col-sm-8">
-                                        <div class='input-group date col-sm-12' id='birthDayPicker'>
-                                            <!--<input id="inputBirth" type='text' class="form-control" />-->
-                                            {{ form_widget(form.yearOfBirth, { 'attr': {'class': 'form-control'} }) }}
-                                            {{ form_errors(form.yearOfBirth) }}
-                                            <span class="input-group-addon">
+                        {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit form-horizontal' } }) }}
+                        {{ form_errors(form) }}
+
+                        <div class="panel-body">
+                            <div class=" col-md-12 col-lg-12 ">
+                                <div class="col-md-3 col-lg-3 " align="center">
+                                    <img id="foto1" alt="User Pic"
+                                         src="{{ app.user.img }}"
+                                         class="img-circle img-responsive">
+
+                                    <h6>Verander uw foto</h6>
+                                    <span class="btn btn-default btn-file">
+                                        Browse <input type="file" name="imgeFile" id="imgeFile" accept="image/x-png, image/gif, image/jpeg" data-max-size="512">
+                                    </span>
+                                    <div class="form-group" style="visibility:hidden;">
+                                            {{ form_label(form.img, 'Profiel foto', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                            <div class="col-sm-8">
+                                                {{ form_widget(form.img, { 'attr': {'class': 'form-control'} }) }}
+                                                {{ form_errors(form.img) }}
+                                            </div>
+                                        </div>
+                                </div>
+
+                                <div class=" col-md-9 col-lg-9 ">
+                                        
+                                    <div class="form-group">
+                                        {{ form_label(form.name, 'Voornaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                        <div class="col-sm-8">
+                                            {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+                                            {{ form_errors(form.name) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(form.lastname, 'Achternaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                        <div class="col-sm-8">
+                                            {{ form_widget(form.lastname, { 'attr': {'class': 'form-control'} }) }}
+                                            {{ form_errors(form.lastname) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(form.username, 'Gebruikersnaam', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                        <div class="col-sm-8">
+                                            {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
+                                            {{ form_errors(form.username) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(form.email, 'E-mailadres', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                        <div class="col-sm-8">
+                                            {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+                                            {{ form_errors(form.email) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(form.yearOfBirth, 'Geboortedatum', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                        <div class="col-sm-8">
+                                            <div class='input-group date col-sm-12' id='birthDayPicker'>
+                                                <!--<input id="inputBirth" type='text' class="form-control" />-->
+                                                {{ form_widget(form.yearOfBirth, { 'attr': {'class': 'form-control'} }) }}
+                                                {{ form_errors(form.yearOfBirth) }}
+                                                <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar">
                                                 </span>
                                             </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form_label(form.current_password, 'Wachtwoord', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                                        <div class="col-sm-8">
+                                            {{ form_widget(form.current_password, { 'attr': {'class': 'form-control'} }) }}
+                                            {{ form_errors(form.current_password) }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    {{ form_label(form.current_password, 'Huidig wachtwoord', {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
-	                                    <div class="col-sm-8">
-	                                        {{ form_widget(form.current_password, { 'attr': {'class': 'form-control'} }) }}
-	                                        {{ form_errors(form.current_password) }}
-	                                    </div>
-                                	</div>
-                        	</div>
+                            </div>
                         </div>
 
-							    
-							<div class="panel-footer clearfix">
+
+                        <div class="panel-footer clearfix">
                             <div class="pull-right">
                                 <!--<a href="#" class="btn btn-primary">Registreer</a>-->
                                 <input type="submit" class="btn btn-primary" value="{{ 'profile.edit.submit'|trans }}"/>
@@ -80,20 +102,42 @@
                             </div>
                         </div>
                         {{ form_end(form) }}
+                    </div>
+                    <div class="col-sm-12 margin50"></div>
+                    <script src={{ asset("datePicker/js/bootstrap-datepicker.js") }} type="text/javascript"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('#birthDayPicker')
+                                    .datepicker({
+                                        format: 'dd-mm-yyyy',
+                                        orientation: "bottom auto",
+                                        autoclose: true
+                                    })
+                        });
+                        document.getElementById("imgeFile").onchange = function () {
+                            var fileInput = $('#imgFile');
+                            var maxSize = fileInput.data('max-size');
+
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                // get loaded data and render thumbnail.
+                                var maxChar = 688890;
+                                if (e.target.result.length > maxChar){
+                                    alert('file size is more then 500 Kb');
+                                } else {
+                                    document.getElementById("foto1").src = e.target.result;
+                                    document.getElementById("fos_user_profile_form_img").value = e.target.result;
+                                }
+                            };
+
+                            // read the image file as a data URL.
+
+                            reader.readAsDataURL(this.files[0]);
+                        };
+                    </script>
                 </div>
-                <div class="col-sm-12 margin50"></div>
-                <script src={{ asset("datePicker/js/bootstrap-datepicker.js") }} type="text/javascript"></script>
-                <script>
-                    $(document).ready(function () {
-                        $('#birthDayPicker')
-                                .datepicker({
-                                    format: 'dd-mm-yyyy',
-                                    orientation: "bottom auto",
-                                    autoclose: true
-                                })
-                    });
-                </script>
             </div>
-        </div>
+            </div>
     </section>
 {% endblock %}

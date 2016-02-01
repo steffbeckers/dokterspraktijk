@@ -18,7 +18,7 @@
                             </section>
                         </div>
                         <div class="col-lg-6 col-md-6">
-                            <a href="/afspraak-maken">
+                            <a href="/dokters">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <div class="row">
@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="panel-footer" id="gewoonFooter">
-                                        <span class="pull-left">Log in voor een afspraak te maken</span>
+                                        <span class="pull-left">Log in om een afspraak te maken</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
                                         <div class="clearfix"></div>
                                     </div>
@@ -60,6 +60,7 @@
                             {% render url('fos_user_security_login') %}
                         </div>
                     </div>
+                    {% elseif is_granted("ROLE_DOCTOR") == true %}
 
                 {% else %}
                     <div class="col-md-12">
@@ -110,7 +111,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <a href="">
+                        <a href="/dokters">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <div class="row">

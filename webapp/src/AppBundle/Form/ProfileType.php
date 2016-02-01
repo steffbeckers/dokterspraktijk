@@ -20,6 +20,7 @@ class ProfileType extends AbstractType
 
             'format' => 'dd-MM-yyyy',
         ));
+        $builder->add('img');
     }
 
     public function getParent()

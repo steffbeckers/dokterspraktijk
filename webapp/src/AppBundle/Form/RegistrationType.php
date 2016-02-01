@@ -21,6 +21,7 @@ class RegistrationType extends AbstractType
             'widget' => 'single_text',
             'format' => 'dd-MM-yyyy',
         ));
+        $builder->add('img');
     }
 
     public function getParent()

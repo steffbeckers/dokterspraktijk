@@ -20,9 +20,6 @@ class UsersController extends FOSRestController
         return $this->handleView($view);
     }
 
-    /**
-     * @Get("/users/doctors")
-     */
     public function getUsersDoctorsAction()
     {
         $query = $this->getDoctrine()->getEntityManager()
@@ -40,9 +37,6 @@ class UsersController extends FOSRestController
         return $this->handleView($view);
     }
 
-    /**
-     * @Get("/users/endusers")
-     */
     public function getUsersUsersAction()
     {
         $query = $this->getDoctrine()->getEntityManager()

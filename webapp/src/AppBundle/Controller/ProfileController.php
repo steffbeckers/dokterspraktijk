@@ -30,7 +30,7 @@ class ProfileController extends Controller
             return $this->render('Profile/updateUser.html.twig', array(
                 'user' => $user,));
         } else if ($securityContext->isGranted('ROLE_DOCTOR')) {
-            return $this->render('Profile/updateUser.html.twig', array(
+            return $this->render('Profile/updateDoctor.html.twig', array(
                 'user' => $user,));
         } else {
             return $this->render('Home/login.html.twig');
@@ -39,22 +39,15 @@ class ProfileController extends Controller
     }
 
     /**
-     * @Route("/deleteUser")
+     * @Route("/dokters")
      */
-    public function deleteUserAction()
+    public function showDoktersAction()
     {
-        return $this->render('Profile/deleteUser.html.twig', array(
-            // ...
-        ));
+        $userManager = $this->get('fos_user.user_manager');
+        $users = $userManager->findUsers();
+
+        return $this->render('Profile/showDoctors.html.twig', array('users' => $users));
     }
 
-    /**
-     * @Route("/addUser")
-     */
-    public function addUserAction()
-    {
-        return $this->render('Profile/addUser.html.twig', array(
-            // ...
-        ));
-    }
+
 }

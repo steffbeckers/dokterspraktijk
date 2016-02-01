@@ -63,6 +63,14 @@ class User extends BaseUser
      */
     private $yearOfBirth;
 
+    /**
+     * @var TEXT $img
+     *
+     * @ORM\Column(name="img", type="text")
+     */
+    protected $img;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -97,5 +105,32 @@ class User extends BaseUser
     {
         $this->yearOfBirth = $yearOfBirth;
     }
+
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
+
+    /**
+     * @param string $role
+     *
+     * @return array
+     */
+    public function findByRole($role)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from($this->_entityName, 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%');
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 }

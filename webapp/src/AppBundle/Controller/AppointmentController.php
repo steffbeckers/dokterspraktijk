@@ -19,26 +19,11 @@ class AppointmentController extends Controller
             return $this->render('Afspraak/showCalendar.html.twig');
         } else 
         {
-            return $this->render('Profile/showDoctors.html.twig');
-        }
-        
-    }
+            $userManager = $this->get('fos_user.user_manager');
+            $users = $userManager->findUsers();
 
-    /**
-     * @Route("/afspraken-beheren", name="afspraak-beheren")
-     */
-    public function editCalendarAction()
-    {
-        $securityContext = $this->container->get('security.context');
-        $router = $this->container->get('router');
-
-        if( $securityContext->isGranted('ROLE_DOCTOR')){
-            return $this->render('Afspraak/editCalendar.html.twig');
-        } else
-        {
-            return $this->render('Home/index.html.twig');
+            return $this->render('Profile/showDoctors.html.twig', array('users' => $users));
         }
 
     }
-
 }
