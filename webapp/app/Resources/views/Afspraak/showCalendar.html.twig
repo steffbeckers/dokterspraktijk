@@ -10,10 +10,17 @@
         <link href={{ asset('css/calendarStyles.css') }} rel='stylesheet'/>
     {% endblock %}
     {% block breadcrumbs %}
-        <ul class="breadcrumb">
+        <ul class="breadcrumb visible-lg visible-md visible-sm">
             <li>
                 <a href="{{ path(app.request.attributes.get('_route'))}}">
                     Afspraak maken
+                </a>
+            </li>
+        </ul>
+        <ul class="breadcrumb visible-xs">
+            <li>
+                <a href="{{ path(app.request.attributes.get('_route'))}}">
+                    Uw afspraken
                 </a>
             </li>
         </ul>
@@ -30,6 +37,9 @@
                         </div>
                         <div class="panel-body">
                             hier komen uw afspraken
+
+                            Alles voor de dokter als dokter && alles voor patient als patient
+
                         </div>
                     </section>
                 </div>
