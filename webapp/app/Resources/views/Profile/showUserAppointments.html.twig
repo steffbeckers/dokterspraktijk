@@ -1,0 +1,58 @@
+{% extends "::base.html.twig" %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ path(app.request.attributes.get('_route'))}}">
+                Mijn afspraken
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-md-offset-3">
+                    {% if is_granted("ROLE_USER") == false %}
+                        <a style="margin-top: 20px" class="btn btn-primary btn-wide" href="/aanmelden">
+                            Meld je aan om een afspraak te maken
+                        </a>
+                    {% else %}
+
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                {% for appointment in appointments %}
+                            <div class="col-sm-12 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Afspraak nummer : {{ appointment.id }} ->  {{appointment.title}}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class=" col-md-9 col-lg-9 ">
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Room</span> {{ appointment.room }}</label>
+                                                </div>
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Start</span>{{ appointment.start|date('Y-m-d H:i:s') }}</label>
+                                                </div>
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">End</span> {{ appointment.end|date('Y-m-d H:i:s') }}</a></label>
+                                                </div>
+                                                <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Message</span>{{appointment.message }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                {% endfor %}
+                <!-- end repeat -->
+            </div>
+        </div>
+    </section>
+{% endblock %}

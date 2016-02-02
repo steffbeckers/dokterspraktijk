@@ -49,5 +49,15 @@ class ProfileController extends Controller
         return $this->render('Profile/showDoctors.html.twig', array('users' => $users));
     }
 
+    /**
+     * @Route("/afspraken")
+     */
+    public function showUserAppointmentsAction()
+    {
+        $id = $this->getUser()->getId();
+        $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('patientid' => $id));
+        return $this->render('Profile/showUserAppointments.html.twig', array('appointments' => $appointments));
+    }
+
 
 }
