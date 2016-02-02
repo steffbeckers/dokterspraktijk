@@ -35,10 +35,9 @@
                                         <label for="room">Locatie</label>
                                         <!-- <input name="room" class="form-control" id="room" type="text" placeholder="Vul de locatie voor de afspraak in"/> -->
                                         <select name="room" id="room" class="form-control">
-                                            <option value="onthaal">Onthaal</option>
-                                            <option value="lokaal 1">Lokaal 1</option>
-                                            <option value="Lokaal 2">Lokaal 2</option>
-                                            <option value="Lokaal 3">Lokaal 3</option>
+                                            {% for room in rooms %}
+                                            <option value="{room.roomName}">{{ room.roomName|capitalize }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>

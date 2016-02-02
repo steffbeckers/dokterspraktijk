@@ -131,6 +131,9 @@ easy_admin:
         Appointment:
             label: 'Afspraken'
             class: AppBundle\Entity\Appointment
+        Room:
+            label: 'Kamers'
+            class: AppBundle\Entity\Room
     site_name: 'Dokterspraktijk'
 
 services:
