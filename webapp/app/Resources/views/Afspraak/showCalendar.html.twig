@@ -116,12 +116,9 @@
             var min = moment(minTime, 'HH:mm').format('HH:mm');
             var max = moment(maxTime, 'HH:mm').format('HH:mm');
             var now = moment(Date.now()).format('HH:mm');
-            console.log("min: " + min + " max: " + max + " now: " + now);
             if (now >= max) {
-                console.log("GROTER");
                 return min;
             } else {
-                console.log("KLEINER");
                 return now;
             }
         }
@@ -160,7 +157,7 @@
                     center: 'title',
                     right: 'agendaWeek,agendaDay'
                 },
-                firstDay: dateNowInt(),
+                firstDay: 1,
                 allDaySlot: false,
                 defaultDate: Date.now(),
                 lang: 'nl',
@@ -190,7 +187,7 @@
                     calEvent.backgroundColor = "rgb(24, 188, 156)";
                     calendar.fullCalendar('rerenderEvents');
                     $("input[id=appointmentId]").val(calEvent.id);
-                    $("#dateAndTime").html("<i class=\"fa fa-calendar\" /> &nbsp;" + moment(calEvent.start).format('DD MMMM YYYY') + "<br /><i class=\"fa fa-clock-o\" /> &nbsp;" + moment(calEvent.start).format('H:mm') + " - " + moment(calEvent.end).format('H:mm'));
+                    $("#dateAndTime").html("<i class=\"fa fa-calendar\" /> &nbsp;" + moment(calEvent.start).format('DD MMMM YYYY') + "<br /><i class=\"fa fa-clock-o\" /> &nbsp;" + moment(calEvent.start).format('HH:mm') + " - " + moment(calEvent.end).format('HH:mm'));
                     $("#location").html("<i class=\"fa fa-location-arrow\" /> &nbsp;" + calEvent.room);
                 },
                 loading: function(bool) {
