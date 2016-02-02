@@ -37,6 +37,9 @@
                                                     <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Room</span> {{ appointment.room|capitalize }}</label>
                                                 </div>
                                                 <div class="form-group text-right">
+                                                    <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Dokter</span>{{ appointment.doctorId }}</label>
+                                                </div>
+                                                <div class="form-group text-right">
                                                     <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Start</span>{{ appointment.start|date('Y-m-d H:i:s') }}</label>
                                                 </div>
                                                 <div class="form-group text-right">
@@ -45,6 +48,7 @@
                                                 <div class="form-group text-right">
                                                     <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Message</span>{{appointment.message }}</label>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
