@@ -140,6 +140,9 @@
                     calendar.fullCalendar('unselect');
                 },
                 eventClick: function (calEvent, jsEvent, view) {
+                    $(this).hide();
+                    calendar.fullCalendar('removeEvents', calEvent._id);
+                    calendar.fullCalendar('rerenderEvents');
                     $.ajax({
                         url: "http://localhost:8000/api/appointments/" + calEvent._id,
                         type: 'delete',
@@ -152,9 +155,6 @@
                             //$("#results").append("The result = " + msg);
                         }
                     });
-
-                    calendar.fullCalendar('removeEvents', calEvent._id);
-                    calendar.fullCalendar('rerenderEvents');
                 }
             });
 
