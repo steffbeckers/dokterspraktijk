@@ -58,7 +58,7 @@ class User extends BaseUser
     /**
      * @var date $yearOfBirth
      *
-     * @ORM\Column(name="year_of_birth", type="datetime")
+     * @ORM\Column(name="year_of_birth", type="datetime",nullable=true)
      * @Assert\DateTime()
      */
     private $yearOfBirth;
