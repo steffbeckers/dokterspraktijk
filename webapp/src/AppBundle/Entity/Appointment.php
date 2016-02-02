@@ -18,7 +18,7 @@ class Appointment
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=50, nullable=true)
-     * @Groups({"appointmentsList"})
+     * @Groups({"appointmentsList", "appointmentsDoctorList"})
      */
     private $title;
 
@@ -33,6 +33,7 @@ class Appointment
      * @var integer
      *
      * @ORM\Column(name="patientId", type="integer", nullable=true)
+     * @Groups({"appointmentsDoctorList"})
      */
     private $patientid;
 
@@ -40,6 +41,7 @@ class Appointment
      * @var string
      *
      * @ORM\Column(name="patientName", type="string", length=100, nullable=true)
+     * @Groups({"appointmentsDoctorList"})
      */
     private $patientname;
 
@@ -47,6 +49,7 @@ class Appointment
      * @var string
      *
      * @ORM\Column(name="message", type="text", length=65535, nullable=true)
+     * @Groups({"appointmentsDoctorList"})
      */
     private $message;
 
@@ -54,7 +57,7 @@ class Appointment
      * @var \DateTime
      *
      * @ORM\Column(name="start", type="datetime", nullable=false)
-     * @Groups({"appointmentsList"})
+     * @Groups({"appointmentsList", "appointmentsDoctorList"})
      */
     private $start;
 
@@ -62,7 +65,7 @@ class Appointment
      * @var \DateTime
      *
      * @ORM\Column(name="end", type="datetime", nullable=false)
-     * @Groups({"appointmentsList"})
+     * @Groups({"appointmentsList", "appointmentsDoctorList"})
      */
     private $end;
 
@@ -70,7 +73,7 @@ class Appointment
      * @var string
      *
      * @ORM\Column(name="room", type="string", length=30, nullable=false)
-     * @Groups({"appointmentsList"})
+     * @Groups({"appointmentsList", "appointmentsDoctorList"})
      */
     private $room;
 
@@ -87,7 +90,7 @@ class Appointment
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups({"appointmentsList"})
+     * @Groups({"appointmentsList", "appointmentsDoctorList"})
      */
     private $id;
 
