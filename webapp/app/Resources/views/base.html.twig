@@ -36,6 +36,7 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
                     <li {% if app.request.get('_route') == 'homepage' %} class="active" {% endif %}><a href="/">Startpagina</a></li>
+                    <li class="dropdown">
                     {% if is_granted("ROLE_DOCTOR") %}
                         <li {% if app.request.get('_route') == 'agenda' %} class="active" {% endif %}><a href="/agenda">Agenda</a></li>
                     {% endif %}
@@ -51,6 +52,10 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{app.user.name | capitalize}} {{app.user.lastname | capitalize}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            {% if is_granted("ROLE_DOCTOR") %}
+                            {% elseif is_granted("ROLE_USER")%}
+                            <li><a href="/afspraken">Mijn afspraken</a></li>
+                            {% endif %}
                             <li><a href="/profiel-aanpassen">Profiel aanpassen</a></li>
                             <li><a href="/profile/change-password">Wachtwoord aanpassen</a></li>
                             <li><a href="/logout">Afmelden</a></li>

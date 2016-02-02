@@ -36,7 +36,7 @@ class User extends BaseUser
      *     maxMessage="The name is too long.",
      *     groups={"Registration", "Profile"}
      * )
-     * @Groups({"doctorList", "appointmentsDoctorList"})
+     * @Groups({"doctorList"})
      */
     protected $name;
 
@@ -51,14 +51,13 @@ class User extends BaseUser
      *     maxMessage="The lastname is too long.",
      *     groups={"Registration", "Profile"}
      * )
-     * @Groups({"doctorList", "appointmentsDoctorList"})
+     * @Groups({"doctorList"})
      */
     protected $lastname;
 
     /**
      * @var date $yearOfBirth
-     *
-     * @ORM\Column(name="year_of_birth", type="datetime")
+     * @ORM\Column(name="year_of_birth", type="datetime", nullable=true)
      * @Groups({"appointmentsDoctorList"})
      * @Assert\DateTime()
      */

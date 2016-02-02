@@ -33,7 +33,12 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="room">Locatie</label>
-                                        <input name="room" class="form-control" id="room" type="text" placeholder="Vul de locatie voor de afspraak in"/>
+                                        <!-- <input name="room" class="form-control" id="room" type="text" placeholder="Vul de locatie voor de afspraak in"/> -->
+                                        <select name="room" id="room" class="form-control">
+                                            {% for room in rooms %}
+                                            <option value="{room.roomName}">{{ room.roomName|capitalize }}</option>
+                                            {% endfor %}
+                                        </select>
                                     </div>
                                 </div>
                             </div>

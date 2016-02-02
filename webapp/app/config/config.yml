@@ -125,12 +125,15 @@ easy_admin:
             list:
                 fields: ['username','name', 'lastname','email', 'enabled', 'roles']
             edit:
-                fields: ['username','name', 'lastname','email', 'enabled', 'roles']
+                fields: ['username','name', 'lastname','email', 'enabled', 'roles', 'password']
             new:
-                fields: ['username','name', 'lastname','email', 'enabled', 'roles']
+                fields: ['username','name', 'lastname','email', 'password', 'enabled', 'roles']
         Appointment:
             label: 'Afspraken'
             class: AppBundle\Entity\Appointment
+        Room:
+            label: 'Kamers'
+            class: AppBundle\Entity\Room
     site_name: 'Dokterspraktijk'
 
 services:

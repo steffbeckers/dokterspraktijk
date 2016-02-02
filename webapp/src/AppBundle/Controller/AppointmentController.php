@@ -36,7 +36,9 @@ class AppointmentController extends Controller
         $router = $this->container->get('router');
 
         if ($securityContext->isGranted('ROLE_DOCTOR')) {
-            return $this->render('Afspraak/editCalendar.html.twig');
+            $em = $this->getDoctrine()->getManager();
+            $rooms = $em->getRepository('AppBundle:Room')->findAll();
+            return $this->render('Afspraak/editCalendar.html.twig', array('rooms' => $rooms));
         } else {
             $userManager = $this->get('fos_user.user_manager');
             $users = $userManager->findUsers();

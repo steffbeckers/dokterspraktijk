@@ -7,7 +7,7 @@
                 {% if app.user %}
                     <div class="col-md-12">
                 {% else %}
-                    <div class="col-md-9">
+                    <div class="col-md-9 visible-lg visible-md visible-sm">
                 {% endif %}
                         <div class="col-md-12">
                             <section class="panel panel-default">
@@ -22,7 +22,6 @@
                         </div>
                         {% if app.user %}
                             <div class="col-lg-3 col-md-6">
-                                <a href="/afspraak-maken">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
                                             <div class="row">
@@ -32,12 +31,25 @@
                                             </div>
                                         </div>
                                         <div class="panel-footer" id="gewoonFooter">
-                                            <span class="pull-left">Mijn afspraken</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            {% if is_granted("ROLE_DOCTOR") %}
+                                            <a href="/afspraken-beheren">
+                                                <span class="pull-left">Afspraken beheren</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            </a>
+                                            
+                                            {% elseif is_granted("ROLE_USER") %}
+                                            <a href="/afspraken">
+                                                <span class="pull-left">Mijn afspraken</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            </a>
+                                            <a href="/afspraak-maken">
+                                                <span class="pull-left">Nieuwe afspraak maken</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            </a>
+                                            {% endif %}
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
-                                </a>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <a href="/profiel-aanpassen">
