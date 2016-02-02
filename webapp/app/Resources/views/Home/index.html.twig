@@ -4,8 +4,11 @@
     <section>
         <div class="container">
             <div class="row">
-                {% if is_granted("ROLE_USER") == false %}
+                {% if app.user %}
+                    <div class="col-md-12">
+                {% else %}
                     <div class="col-md-9">
+                {% endif %}
                         <div class="col-md-12">
                             <section class="panel panel-default">
                                 <div class="panel-body">
@@ -17,136 +20,132 @@
                                 </div>
                             </section>
                         </div>
-                        <div class="col-lg-6 col-md-6">
-                            <a href="/dokters">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-12 text-center">
-                                                <i class="fa fa-user-md fa-5x"></i>
+                        {% if app.user %}
+                            <div class="col-lg-3 col-md-6">
+                                <a href="/afspraak-maken">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-12 text-center">
+                                                    <i class="fa fa-calendar fa-5x"></i>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="panel-footer" id="gewoonFooter">
+                                            <span class="pull-left">Mijn afspraken</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
                                     </div>
-                                    <div class="panel-footer" id="gewoonFooter">
-                                        <span class="pull-left">Dokters</span>
-                                        <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <a href="/aanmelden">
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-xs-12 text-center">
-                                                <i class="fa fa-calendar fa-5x"></i>
+                                </a>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <a href="/profiel-aanpassen">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-12 text-center">
+                                                    {% if is_granted("ROLE_DOCTOR") == true %}
+                                                        <i class="fa fa-user-md fa-5x"></i>
+                                                    {% else %}
+                                                        <i class="fa fa-user fa-5x"></i>
+                                                    {% endif %}
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="panel-footer" id="gewoonFooter">
+                                            <span class="pull-left">Mijn profiel</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
                                     </div>
-                                    <div class="panel-footer" id="gewoonFooter">
-                                        <span class="pull-left">Log in om een afspraak te maken</span>
-                                        <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
-                                        <div class="clearfix"></div>
-                                    </div>
+                                </a>
+                            </div>
+                            {% if is_granted("ROLE_DOCTOR") == false %}
+                                <div class="col-lg-3 col-md-6">
+                                    <a href="/dokters">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-xs-12 text-center">
+                                                        <i class="fa fa-user-md fa-5x"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer" id="gewoonFooter">
+                                                <span class="pull-left">Dokters</span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+                            {% endif %}
+                            <div class="col-lg-3 col-md-6">
+                                <a href="/logout">
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-12 text-center">
+                                                    <i class="fa fa-sign-out fa-5x"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" id="gewoonFooter">
+                                            <span class="pull-left">Afmelden</span>
+                                            <span class="pull-right"><i class="fa fa-sign-out"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="col-lg-6 col-md-6">
+                                <a href="/dokters">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-12 text-center">
+                                                    <i class="fa fa-user-md fa-5x"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" id="gewoonFooter">
+                                            <span class="pull-left">Dokters</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <a href="/aanmelden">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-12 text-center">
+                                                    <i class="fa fa-calendar fa-5x"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer" id="gewoonFooter">
+                                            <span class="pull-left">Log in om een afspraak te maken</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endif %}
                         </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="col-md-12">
-                            {% render url('fos_user_security_login') %}
-                        </div>
-                    </div>
-                {% elseif is_granted("ROLE_DOCTOR") == true %}
-
-                {% else %}
-                    <div class="col-md-12">
-                        <section class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        Welkom op de website van onze dokterspraktijk.
-                                    </div>
+                        {% if not app.user %}
+                            <div class="col-md-3">
+                                <div class="col-md-12">
+                                    {% render url('fos_user_security_login') %}
                                 </div>
                             </div>
-                        </section>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <a href="/afspraak-maken">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-xs-12 text-center">
-                                            <i class="fa fa-calendar fa-5x"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer" id="gewoonFooter">
-                                    <span class="pull-left">Mijn afspraken</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <a href="/profiel-aanpassen">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-xs-12 text-center">
-                                            <i class="fa fa-user fa-5x"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer" id="gewoonFooter">
-                                    <span class="pull-left">Mijn profiel</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <a href="/dokters">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-xs-12 text-center">
-                                            <i class="fa fa-user-md fa-5x"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer" id="gewoonFooter">
-                                    <span class="pull-left">Dokters</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <a href="/logout">
-                            <div class="panel panel-danger">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-xs-12 text-center">
-                                            <i class="fa fa-sign-out fa-5x"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer" id="gewoonFooter">
-                                    <span class="pull-left">Afmelden</span>
-                                    <span class="pull-right"><i class="fa fa-sign-out"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                {% endif %}
+                        {% endif %}
+                </div>
             </div>
         </div>
     </section>
