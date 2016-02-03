@@ -81,17 +81,15 @@
 {% block body %}
     <div class="container content">
         <div class="row">
-            <h2>Bedankt voor uw registratie, {{user.name}}</h2>
-            <p>U kan nu op de <a href="{{ url('afspraak-maken') }}">site</a> afspraken maken en beheren voor u (en uw gezin)</p>
+            <h2>Nieuw bericht van {{ name }}</h2>
+            <p>{{ body }}</p>
             <p>Met vriendelijke groeten</p>
-            <p>Uw dokterspraktijk</p>
+            <p>{{ name }}</p>
             <br/>
+            <p>U kan een antwoord geven op {{ name }} via <a href="mailto:{{ email }}">{{ email }}</a></p>
             <br/>
-
+            <p>Deze mail is opgesteld in het contact form op de website, antwoord niet op deze mail.</p>
             <p>Gemaakt door groep 8 @PXL</p>
         </div>
     </div>
 {% endblock %}
-
-
-

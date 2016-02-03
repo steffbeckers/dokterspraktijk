@@ -125,9 +125,9 @@ easy_admin:
             list:
                 fields: ['username','name', 'lastname','email', 'enabled', 'roles']
             edit:
-                fields: ['username','name', 'lastname','email', 'enabled', 'roles', 'password']
+                fields: ['username','name', 'lastname','email', 'enabled', 'roles']
             new:
-                fields: ['username','name', 'lastname','email', 'password', 'enabled', 'roles']
+                fields: ['username','name', 'lastname','email', 'plainPassword', 'enabled', 'roles']
         Appointment:
             label: 'Afspraken'
             class: AppBundle\Entity\Appointment

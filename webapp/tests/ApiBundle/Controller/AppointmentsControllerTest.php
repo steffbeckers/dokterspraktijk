@@ -32,9 +32,9 @@ class AppointmentsControllerTest extends WebTestCase
 	{
 		$client = static::createClient();
 
-		$crawler = $client->request('GET', '/api/doctors/12/appointments');
+		$crawler = $client->request('GET', '/api/doctors/1/appointments');
 
-		$this->assertContains('"doctorid":12', $client->getResponse()->getContent());
+		$this->assertContains('"doctorid":1', $client->getResponse()->getContent());
 
 
 	}
@@ -43,9 +43,9 @@ class AppointmentsControllerTest extends WebTestCase
 	{
 		$client = static::createClient();
 
-		$crawler = $client->request('GET', '/api/patients/9/appointments');
+		$crawler = $client->request('GET', '/api/patients/2/appointments');
 
-		$this->assertContains('"patientid":9', $client->getResponse()->getContent());
+		$this->assertContains('"patientid":2', $client->getResponse()->getContent());
 
 	}
 
@@ -62,7 +62,7 @@ class AppointmentsControllerTest extends WebTestCase
 	{
 		$client = static::createClient();
 
-		$crawler = $client->request('GET', '/api/doctors/12/appointments/open');
+		$crawler = $client->request('GET', '/api/doctors/1/appointments/open');
 
 		$this->assertContains('start', $client->getResponse()->getContent());
 	}

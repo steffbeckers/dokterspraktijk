@@ -70,7 +70,6 @@ class User extends BaseUser
      */
     protected $img = null;
 
-
     public function __construct()
     {
         parent::__construct();
