@@ -61,7 +61,7 @@
                                     {% else %}
                                         <div class="clearfix">
                                             Uw afspraken, momenteel heeft u er {{ appointments|length }}.
-                                            <a class="btn btn-xs btn-primary pull-right" href="/afspraak-cal">
+                                            <a data-toggle="tooltip" title="Nieuwe afspraak" class="btn btn-xs btn-primary pull-right" href="/afspraak-cal">
                                                 <span class="pull-right"><i class="fa fa-plus-square-o"></i></span>
                                             </a>
                                         </div>
@@ -109,6 +109,11 @@
         </div>
     </section>
     <script>
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
         var id;
         function showConfirmation(appointmentId) {
             document.getElementById("confirm-delete").style.display = "block";
