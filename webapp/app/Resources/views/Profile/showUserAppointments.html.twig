@@ -10,6 +10,25 @@
     </ul>
 {% endblock %}
 {% block body %}
+<div class="modal" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Afspraak verwijderen</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>U staat op het punt de afspraak te verwijderen.</p>
+                    <p>Weet u dit zeker ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onClick="annulation()">Annuleren</button>
+                    <a id="deleteAppointment" class="btn btn-danger btn-ok" onClick="deleteAppointment()">Verwijderen</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <section>
         <div class="container">
             <div class="row">
@@ -49,7 +68,7 @@
                                                     <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Message</span>{{appointment.message }}</label>
                                                 </div>
                                                 <div class="form-group text-right">
-                                                    <input type="submit" name="submit" value="Verwijder afspraak" class="btn btn-primary pull-right" onClick="deleteAppointment({{appointment.id}})"/>
+                                                    <input type="submit" name="submit" value="Verwijder afspraak" class="btn btn-primary pull-right" onClick="showConfirmation({{appointment.id}})"/>
                                                 </a>
                                                 </div>
                                             </div>
@@ -63,9 +82,18 @@
         </div>
     </section>
     <script>
-    function deleteAppointment(appointmentId) {
+    var id;
+    function showConfirmation(appointmentId) {
+        document.getElementById("confirm-delete").style.display = "block";
+        id = appointmentId;
+    }
+
+    function annulation() {
+        document.getElementById("confirm-delete").style.display = "";
+    }
+    function deleteAppointment() {
                 $.ajax({
-                    url: "http://localhost:8000/api/appointments/" + appointmentId,
+                    url: "http://localhost:8000/api/appointments/" + id,
                     type: 'delete',
                     dataType: "json",
                     processData: false,
