@@ -26,7 +26,34 @@
         </ul>
     {% endblock %}
 {% block body %}
-    
+    <div class="modal" id="confirmCreated" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Uw afspraak is bevestigd</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="patientName" class="control-label">Naam patiënt</label>
+                        <div name="patientName" id="patientName"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientMessage" class="control-label">Reden van consultatie</label>
+                        <div name="patientMessage" id="patientMessage"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-wide btn-default" data-dismiss="modal">Nieuwe afspraak maken</button>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <a href="/afspraken" id="continueToMyAppointments" class="btn btn-wide btn-primary">Doorgaan naar Mijn afspraken</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section>
         <div class="container visible-xs">
             <div class="row">
@@ -111,7 +138,6 @@
         </div>
     </section>
     <script type="text/javascript">
-
         function calculateScrollTime(minTime, maxTime) {
             var min = moment(minTime, 'HH:mm').format('HH:mm');
             var max = moment(maxTime, 'HH:mm').format('HH:mm');
@@ -122,7 +148,6 @@
                 return now;
             }
         }
-
         function loadData(url, callback) {
             $.ajax({
                 url: url,
@@ -133,7 +158,6 @@
                 }
             })
         }
-
         function postData(url, data, callback) {
             $.ajax({
                 url: url,
@@ -149,18 +173,14 @@
                 }
             });
         }
-
         $(document).ready(function () {
-
             prefs = [];
             prefs["minHour"] = '08:00';
             prefs["maxHour"] = '19:00';
             prefs["slotDuration"] = '00:15';
-
             var select = $('#select-doctor');
             var previousClick = null;
             var calendar = $('#calendar');
-
             calendar.fullCalendar('getCalendar');
             calendar.fullCalendar({
                 header: {
@@ -206,26 +226,22 @@
                     else $('#preloader').hide();
                 }
             });
-
             loadData('http://localhost:8000/api/users/doctors', function (doctors) {
                 $.each(doctors, function (key, value) {
                     select.append('<option value="' + value.id + '">' + value.name + " " + value.lastname + '</option>');
                 });
                 loadAppointments(select.val());
             });
-
             select.on('change', function () {
                 $("#dateAndTime").html("Selecteer een datum en tijd in de agenda.");
                 $("input[id=appointmentId]").val();
                 loadAppointments($(this).val());
             });
-
             function createAppointment(appointmentId, appointment) {
                 postData("http://localhost:8000/api/appointments/" + appointmentId, appointment, function (data) {
                     window.location("localhost:8000/afspraken");
                 });
             }
-
             $('#createAppointment').on('click', function () {
                 var appointment = null;
                 appointment = {
@@ -234,20 +250,22 @@
                     "patientMessage": $('#message').val()
                 };
                 createAppointment($("input[id=appointmentId]").val(), appointment);
+                $(this).attr('data-toggle', 'modal');
+                $(this).attr('data-target', '#confirmCreated');
+                $("#patientName").html(appointment.patientName);
+                $("#patientMessage").html(appointment.patientMessage);
+                $('#message').val("");
                 loadAppointments(select.val())
             });
-
             function loadAppointments(doctorId) {
                 loadData('http://localhost:8000/api/doctors/' + doctorId + '/appointments/open', function (appointments) {
                     console.log(appointments);
                     $('#preloader').hide();
-
                     calendar.fullCalendar('removeEvents');
                     calendar.fullCalendar('addEventSource', appointments);
                     calendar.fullCalendar('refetchEvents');
                 });
             }
-
         });
     </script>
 {% endblock %}
