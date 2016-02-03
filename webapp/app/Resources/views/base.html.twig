@@ -43,7 +43,7 @@
                     {% if is_granted("ROLE_DOCTOR") %}
                         <li {% if app.request.get('_route') == 'afspraken-beheren' %} class="active" {% endif %}><a href="/afspraken-beheren">Afspraken beheren</a></li>
                     {% elseif is_granted("ROLE_USER") %}
-                        <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}><a href="/afspraak-maken">Afspraak maken</a></li>
+                            <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}><a href="/afspraak-maken">Afspraken</a></li>
                     {% else %}
                         <li {% if app.request.get('_route') == 'afspraak-maken' %} class="active" {% endif %}><a href="/afspraak-maken">Dokters</a></li>
                     {% endif %}
