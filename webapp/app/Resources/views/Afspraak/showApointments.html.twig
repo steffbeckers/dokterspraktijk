@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+{% block styles %}
+    {{ parent() }}
+    <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.css') }} rel='stylesheet'/>
+    <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.print.css') }} rel='stylesheet' media='print'/>
+    <script src={{ asset('vendor/fullcalendar-2.5.0/lib/moment.min.js') }}></script>
+    <script src={{ asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js') }}></script>
+    <script src={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js') }}></script>
+    <script src={{ asset('vendor/fullcalendar-2.5.0/lang/nl.js') }}></script>
+    <link href={{ asset('css/calendarStyles.css') }} rel='stylesheet'/>
+{% endblock %}
+    {% block breadcrumbs %}
+        <ul class="breadcrumb visible-lg visible-md visible-sm">
+            <li>
+                <a href="{{ path(app.request.attributes.get('_route'))}}">
+                    Afspraak maken
+                </a>
+            </li>
+        </ul>
+        <ul class="breadcrumb visible-xs">
+            <li>
+                <a href="{{ path(app.request.attributes.get('_route'))}}">
+                    Uw afspraken
+                </a>
+            </li>
+        </ul>
+    {% endblock %}
+{% block body %}
+    <!-- render all apointments -->
+
+{% endblock %}
