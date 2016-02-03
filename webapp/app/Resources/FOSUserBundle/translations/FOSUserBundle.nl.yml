@@ -13,7 +13,7 @@ security:
     login:
         username: Gebruikersnaam
         password: Wachtwoord
-        remember_me: 'Onthoud mijn gegevens'
+        remember_me: 'Onthou mij'
         submit: Inloggen
 profile:
     show:
