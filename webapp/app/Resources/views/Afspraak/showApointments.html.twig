@@ -27,5 +27,109 @@
     {% endblock %}
 {% block body %}
     <!-- render all apointments -->
+    <div class="modal" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Afspraak verwijderen</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>U staat op het punt de afspraak te verwijderen.</p>
+                    <p>Weet u dit zeker ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onClick="annulation()">Annuleren</button>
+                    <a id="deleteAppointment" class="btn btn-danger btn-ok" onClick="deleteAppointment()">Verwijderen</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-md-6 col-md-offset-3">
+                    <section class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% if is_granted("ROLE_USER") == false %}
+                                        <a style="margin-top: 20px" class="btn btn-primary btn-wide" href="/aanmelden">
+                                            Meld je aan om een afspraak te maken
+                                        </a>
+                                    {% else %}
+                                        U heeft momenteel {{ appointments|length }} afspraken.
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                {% for appointment in appointments %}
+                    <div class="col-sm-12 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Afspraak nummer : {{ appointment.id }}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class=" col-md-9 col-lg-9 ">
+                                        <div class="form-group text-right">
+                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Room</span> {{ appointment.room|capitalize }}</label>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Dokter</span>{{ appointment.doctorId }}</label>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Start</span>{{ appointment.start|date('d-m-Y H:i') }}</label>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">End</span> {{ appointment.end|date('d-m-Y H:i') }}</a></label>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Message</span>{{appointment.message }}</label>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <input type="submit" name="submit" value="Verwijder afspraak" class="btn btn-primary pull-right" onClick="showConfirmation({{appointment.id}})"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- end repeat -->
+            </div>
+        </div>
+    </section>
+    <script>
+        var id;
+        function showConfirmation(appointmentId) {
+            document.getElementById("confirm-delete").style.display = "block";
+            id = appointmentId;
+        }
+
+        function annulation() {
+            document.getElementById("confirm-delete").style.display = "";
+        }
+        function deleteAppointment() {
+            $.ajax({
+                url: "http://localhost:8000/api/appointments/" + id,
+                type: 'delete',
+                dataType: "json",
+                processData: false,
+                beforeSend: function (request) {
+                    request.setRequestHeader("Content-Type", "application/json");
+                },
+                success: function (msg) {
+                    //$("#results").append("The result = " + msg);
+                }
+            });
+            location.reload();
+        }
+    </script>
+
 
 {% endblock %}
