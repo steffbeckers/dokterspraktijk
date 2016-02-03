@@ -59,7 +59,13 @@
                                             Meld je aan om een afspraak te maken
                                         </a>
                                     {% else %}
-                                        U heeft momenteel {{ appointments|length }} afspraken.
+                                        <div class="clearfix">
+                                            Uw afspraken, momenteel heeft u er {{ appointments|length }}.
+                                            <a class="btn btn-xs btn-primary pull-right" href="/afspraak-cal">
+                                                <span class="pull-right"><i class="fa fa-plus-square-o"></i></span>
+                                            </a>
+                                        </div>
+
                                     {% endif %}
                                 </div>
                             </div>
@@ -69,30 +75,23 @@
                 {% for appointment in appointments %}
                     <div class="col-sm-12 col-md-6">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Afspraak nummer : {{ appointment.id }}</h3>
+                            <div class="panel-heading clearfix">
+                                <h3 class="panel-title">{{ appointment.start|date('d-m-Y H:i') }}
+                                    <span class="text-muted"> Start</span>
+                                    <input type="button" value="Verwijder" name="delete" class="btn btn-xs btn-danger fa-trash pull-right" onClick="showConfirmation({{appointment.id}})"/>
+                                </h3>
                             </div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class=" col-md-9 col-lg-9 ">
-                                        <div class="form-group text-right">
-                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Room</span> {{ appointment.room|capitalize }}</label>
+                                        <div class="text-right">
+                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left">{{ appointment.room|capitalize }}</span><span class="text-muted">end </span>{{ appointment.end|date('d-m-Y H:i') }}</label>
                                         </div>
-                                        <div class="form-group text-right">
+                                        <div class="text-right">
                                             <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Dokter</span>{{ appointment.doctorId }}</label>
                                         </div>
-                                        <div class="form-group text-right">
-                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Start</span>{{ appointment.start|date('d-m-Y H:i') }}</label>
-                                        </div>
-                                        <div class="form-group text-right">
-                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">End</span> {{ appointment.end|date('d-m-Y H:i') }}</a></label>
-                                        </div>
-                                        <div class="form-group text-right">
-                                            <label for="inputFirstName" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Message</span>{{appointment.message }}</label>
-                                        </div>
-                                        <div class="form-group text-right">
-                                            <input type="submit" name="submit" value="Verwijder afspraak" class="btn btn-primary pull-right" onClick="showConfirmation({{appointment.id}})"/>
-                                            </a>
+                                        <div class="text-right">
+                                            <label for="inputFirstName" style="height: 100%" class="col-sm-12 form-control text-right"><span class="pull-left text-muted">Message</span>{{appointment.message }}</label>
                                         </div>
                                     </div>
                                 </div>
