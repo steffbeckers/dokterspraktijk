@@ -54,9 +54,14 @@ class ProfileController extends Controller
      */
     public function showUserAppointmentsAction()
     {
+        if ( $this->getUser() != null)
+        {
         $id = $this->getUser()->getId();
         $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('patientid' => $id));
         return $this->render('Profile/showUserAppointments.html.twig', array('appointments' => $appointments));
+        } else {
+            return $this->redirectToRoute("aanmelden");
+        }
     }
 
 

@@ -20,11 +20,11 @@ class Room
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $roomId;
-    
+
     /**
      * @var string
      *
-     * @ORM\Column(name="room", type="string", length=50, nullable=true)
+     * @ORM\Column(name="roomName", type="string", length=50, nullable=true)
      */
     private $roomName;
 
