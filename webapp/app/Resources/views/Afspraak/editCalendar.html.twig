@@ -7,6 +7,7 @@
         <script src={{ asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js') }}></script>
         <script src={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js') }}></script>
         <script src={{ asset('vendor/fullcalendar-2.5.0/lang/nl.js') }}></script>
+        <script src={{ asset('vendor/bootbox/bootbox.min.js') }}></script>
         <link href={{ asset('css/calendarStyles.css') }} rel='stylesheet'/>
     {% endblock %}
     {% block breadcrumbs %}
@@ -57,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
-                    <a class="btn btn-danger btn-ok">Verwijderen</a>
+                    <a id="deleteAppointment" class="btn btn-danger btn-ok">Verwijderen</a>
                 </div>
             </div>
         </div>
@@ -81,9 +82,6 @@
                                             <option value="{{ room.roomName }}">{{ room.roomName }}</option>
                                             {% endfor %}
                                         </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <a href="http://google.be" data-confirm="Weet u zeker dat u naar Google wil surfen?">Googlings</a>
                                     </div>
                                 </div>
                             </div>
@@ -194,15 +192,12 @@
 
                         $(this).attr('data-toggle', 'modal');
                         $(this).attr('data-target', '#confirm-delete');
+                        //$("#deleteAppointment").attr('data-appointment', event._id);
 
                         $("#appointmentDateTime").html(moment(event.start).format('DD MMM') + " " + moment(event.start).format('HH:mm') + " - " + moment(event.end).format('HH:mm'))
                         $("#appointmentLocation").html(event.room);
                         $("#patientName").html(event.patientname);
                         $("#patientMessage").html(event.message);
-
-                        $('#confirm-delete').on('show.bs.modal', function(e) {
-                            alert("ok");
-                        });
                     } else {
                         deleteAppointment(event._id);
                     }
