@@ -1,0 +1,5 @@
+Voor de testen te laten successen zou ge volgende dingen moeten checken
+
+een id 1 bij appointments hebben
+docterid van 1 hebben
+ne user met id 9 met als username dokter, rest maakt niet uit

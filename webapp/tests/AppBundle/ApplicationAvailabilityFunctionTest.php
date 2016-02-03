@@ -27,6 +27,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/aanmelden'),
             array('/meettheteam'),
             array('/login'),
+            array('/dokters'),
         );
     }
 
@@ -51,6 +52,32 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
             array('/'),
             array('/afspraak-maken'),
             array('/profiel-aanpassen'),
+            array('/afspraken'),
+        );
+    }
+
+    /**
+    * @dataProvider urlDoctorProvider
+    */
+    public function testPageIsSuccessfulLoggedInDoctor($url)
+    {
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'yannickdoc',
+            'PHP_AUTH_PW'   => '123456',
+        ));
+
+        $client->request('GET', $url);
+
+        $this->assertTrue($client->getResponse()->isSuccessful());
+    }
+
+    public function urlDoctorProvider()
+    {
+        return array(
+            array('/'),
+            array('/afspraken-beheren'),
+            array('/profiel-aanpassen'),
+            array('/agenda'),
         );
     }
 

@@ -25,7 +25,7 @@ class UsersControllerTest extends WebTestCase
 
 		$crawler = $client->request('GET', '/api/users/9');
 
-		$this->assertContains('"username":"yannick', $client->getResponse()->getContent());
+		$this->assertContains('"username":"dokter', $client->getResponse()->getContent());
 	}
 
 	public function testApiReturnsDoctorOnly()
@@ -34,7 +34,7 @@ class UsersControllerTest extends WebTestCase
 
 		$crawler = $client->request('GET', '/api/users/doctors');
 
-		$this->assertContains('"id":12', $client->getResponse()->getContent());
+		$this->assertContains('"id":21', $client->getResponse()->getContent());
 	}
 
 
