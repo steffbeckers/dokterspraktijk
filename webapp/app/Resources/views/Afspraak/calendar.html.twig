@@ -46,10 +46,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <img class="center-block margin10" id="preloader" src="{{ asset('preloader1.gif') }}"/>
-                                    <!-- Modal -->
                                     <div class="modal fade" id="appointmentModal" role="dialog">
                                         <div class="modal-dialog modal-sm">
-                                            <!-- Modal content-->
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -94,11 +92,6 @@
             }
         }
 
-        function dateNowInt() {
-            var d = new Date();
-            return d.getDay();
-        }
-
         function loadData(url, callback) {
             $.ajax({
                 url: url,
@@ -125,7 +118,7 @@
                     center: 'title',
                     right: 'agendaWeek,agendaDay'
                 },
-                firstDay: dateNowInt(),
+                firstDay: 1,
                 allDaySlot: false,
                 defaultDate: Date.now(),
                 lang: 'nl',

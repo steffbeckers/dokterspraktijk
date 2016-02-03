@@ -123,11 +123,6 @@
             }
         }
 
-        function dateNowInt() {
-            var d = new Date();
-            return d.getDay();
-        }
-
         function loadData(url, callback) {
             $.ajax({
                 url: url,
@@ -137,6 +132,22 @@
                     callback(data);
                 }
             })
+        }
+
+        function postData(url, data, callback) {
+            $.ajax({
+                url: url,
+                type: 'post',
+                dataType: "json",
+                processData: false,
+                beforeSend: function (request) {
+                    request.setRequestHeader("Content-Type", "application/json");
+                },
+                data: JSON.stringify(data),
+                success: function (msg) {
+                    callback(msg);
+                }
+            });
         }
 
         $(document).ready(function () {
@@ -209,29 +220,20 @@
                 loadAppointments($(this).val());
             });
 
+            function createAppointment(appointmentId, appointment) {
+                postData("http://localhost:8000/api/appointments/" + appointmentId, appointment, function (data) {
+                    window.location("localhost:8000/afspraken");
+                });
+            }
+
             $('#createAppointment').on('click', function () {
                 var appointment = null;
-
                 appointment = {
                     "patientId": $('#userId').val(),
                     "patientName": $('#name').val(),
                     "patientMessage": $('#message').val()
                 };
-
-                $.ajax({
-                    url: "http://localhost:8000/api/appointments/" + $("input[id=appointmentId]").val(),
-                    type: 'post',
-                    dataType: "json",
-                    processData: false,
-                    beforeSend: function (request) {
-                        request.setRequestHeader("Content-Type", "application/json");
-                    },
-                    data: JSON.stringify(appointment),
-                    success: function (msg) {
-
-                    }
-                });
-
+                createAppointment($("input[id=appointmentId]").val(), appointment);
                 loadAppointments(select.val())
             });
 
