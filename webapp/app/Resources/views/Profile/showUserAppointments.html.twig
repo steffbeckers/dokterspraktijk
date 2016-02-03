@@ -43,6 +43,17 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12">
+                    <section class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    U heeft momenteel {{ appointments|length }} afspraken.
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
                 {% for appointment in appointments %}
                             <div class="col-sm-12 col-md-6">
                                 <div class="panel panel-primary">

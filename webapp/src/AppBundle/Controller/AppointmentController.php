@@ -16,9 +16,21 @@ class AppointmentController extends Controller
         $router = $this->container->get('router');
 
         if( $securityContext->isGranted('ROLE_USER')){
+
             $em = $this->getDoctrine()->getManager();
             $rooms = $em->getRepository('AppBundle:Room')->findAll();
-            return $this->render('Afspraak/showCalendar.html.twig', array('rooms' => $rooms));
+            $id = $this->getUser()->getId();
+            $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('patientid' => $id));
+
+            //Laat 1 pagina waar 2 paginas in zitten
+
+            if ($this->isMobile()){
+                //Mobile laad een pagina waar dan de apointments ingeladen worden
+                return $this->render('Afspraak/showApointments.html.twig', array('appointments' => $appointments));
+            } else {
+                //Gewoon laad een pagina waar dan alles ingeladen wordt
+                return $this->render('Afspraak/showCalendar.html.twig', array('rooms' => $rooms, 'appointments' => $appointments));
+            }
         } else
         {
             $userManager = $this->get('fos_user.user_manager');
@@ -66,5 +78,9 @@ class AppointmentController extends Controller
             return $this->render('Profile/showDoctors.html.twig', array('users' => $users));
         }
 
+    }
+
+    function isMobile() {
+        return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
     }
 }
