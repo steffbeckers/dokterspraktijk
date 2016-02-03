@@ -7,6 +7,7 @@
         <script src={{ asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js') }}></script>
         <script src={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js') }}></script>
         <script src={{ asset('vendor/fullcalendar-2.5.0/lang/nl.js') }}></script>
+        <script src={{ asset('vendor/bootbox/bootbox.min.js') }}></script>
         <link href={{ asset('css/calendarStyles.css') }} rel='stylesheet'/>
     {% endblock %}
     {% block breadcrumbs %}
@@ -19,7 +20,49 @@
         </ul>
     {% endblock %}
 {% block body %}
+    <div class="modal" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Afspraak verwijderen</h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>U staat op het punt onderstaande afspraak te verwijderen.</p>
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="appointmentDateTime" class="control-label">Datum en tijd</label>
+                                    <div name="appointmentDateTime" id="appointmentDateTime"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointmentLocation" class="control-label">Locatie</label>
+                                    <div name="appointmentLocation" id="appointmentLocation"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="patientName" class="control-label">Naam patiënt</label>
+                                    <div name="patientName" id="patientName"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientMessage" class="control-label">Reden van consultatie</label>
+                                    <div name="patientMessage" id="patientMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                    <a id="deleteAppointment" class="btn btn-danger btn-ok">Verwijderen</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <section>
         <div class="container">
             <div class="row">
@@ -144,33 +187,55 @@
 
                     calendar.fullCalendar('unselect');
                 },
-                eventClick: function (calEvent, jsEvent, view) {
-                    $(this).hide();
-                    calendar.fullCalendar('removeEvents', calEvent._id);
-                    calendar.fullCalendar('rerenderEvents');
-                    $.ajax({
-                        url: "http://localhost:8000/api/appointments/" + calEvent._id,
-                        type: 'delete',
-                        dataType: "json",
-                        processData: false,
-                        beforeSend: function (request) {
-                            request.setRequestHeader("Content-Type", "application/json");
-                        },
-                        success: function (msg) {
-                            //$("#results").append("The result = " + msg);
-                        }
-                    });
+                eventClick: function (event, jsEvent, view) {
+                    if($(this).css("background-color") === "rgb(71, 98, 127)") {
+
+                        $(this).attr('data-toggle', 'modal');
+                        $(this).attr('data-target', '#confirm-delete');
+                        //$("#deleteAppointment").attr('data-appointment', event._id);
+
+                        $("#appointmentDateTime").html(moment(event.start).format('DD MMM') + " " + moment(event.start).format('HH:mm') + " - " + moment(event.end).format('HH:mm'))
+                        $("#appointmentLocation").html(event.room);
+                        $("#patientName").html(event.patientname);
+                        $("#patientMessage").html(event.message);
+                    } else {
+                        deleteAppointment(event._id);
+                    }
                 }
             });
+
+            function deleteAppointment(appointmentId) {
+                $(this).hide();
+                calendar.fullCalendar('removeEvents', appointmentId);
+                calendar.fullCalendar('rerenderEvents');
+                $.ajax({
+                    url: "http://localhost:8000/api/appointments/" + appointmentId,
+                    type: 'delete',
+                    dataType: "json",
+                    processData: false,
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Content-Type", "application/json");
+                    },
+                    success: function (msg) {
+                        //$("#results").append("The result = " + msg);
+                    }
+                });
+            }
 
             loadAppointments({{ app.user.id }});
 
             function loadAppointments(doctorId) {
                 loadData('http://localhost:8000/api/doctors/' + doctorId + '/appointments/open', function (appointments) {
                     $('#preloader').hide();
-
-                    calendar.fullCalendar('removeEvents');
                     calendar.fullCalendar('addEventSource', appointments);
+                    calendar.fullCalendar('refetchEvents');
+                });
+                loadData('http://localhost:8000/api/doctors/' + doctorId + '/appointments/closed', function (appointments) {
+                    $('#preloader').hide();
+                    calendar.fullCalendar('addEventSource', {
+                        events: appointments,
+                        color: 'rgb(71, 98, 127)'
+                    });
                     calendar.fullCalendar('refetchEvents');
                 });
             }

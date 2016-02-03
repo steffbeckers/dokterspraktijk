@@ -57,8 +57,8 @@ class User extends BaseUser
 
     /**
      * @var date $yearOfBirth
-     *
-     * @ORM\Column(name="year_of_birth", type="datetime",nullable=true)
+     * @ORM\Column(name="year_of_birth", type="datetime", nullable=true)
+     * @Groups({"appointmentsDoctorList"})
      * @Assert\DateTime()
      */
     private $yearOfBirth;

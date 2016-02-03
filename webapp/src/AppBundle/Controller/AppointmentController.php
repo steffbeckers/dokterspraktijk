@@ -48,4 +48,23 @@ class AppointmentController extends Controller
         }
 
     }
+
+    /**
+     * @Route("/agenda", name="agenda")
+     */
+    public function calendarAction()
+    {
+        $securityContext = $this->container->get('security.context');
+        $router = $this->container->get('router');
+
+        if ($securityContext->isGranted('ROLE_DOCTOR')) {
+            return $this->render('Afspraak/calendar.html.twig');
+        } else {
+            $userManager = $this->get('fos_user.user_manager');
+            $users = $userManager->findUsers();
+
+            return $this->render('Profile/showDoctors.html.twig', array('users' => $users));
+        }
+
+    }
 }

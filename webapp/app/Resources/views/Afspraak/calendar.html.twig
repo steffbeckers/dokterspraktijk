@@ -1,0 +1,174 @@
+{% extends "::base.html.twig" %}
+	{% block styles %}
+        {{ parent() }}
+        <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.css') }} rel='stylesheet'/>
+        <link href={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.print.css') }} rel='stylesheet' media='print'/>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lib/moment.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lib/jquery.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/fullcalendar.min.js') }}></script>
+        <script src={{ asset('vendor/fullcalendar-2.5.0/lang/nl.js') }}></script>
+        <link href={{ asset('css/calendarStyles.css') }} rel='stylesheet'/>
+    {% endblock %}
+    {% block breadcrumbs %}
+        <ul class="breadcrumb">
+            <li>
+                <a href="{{ path(app.request.attributes.get('_route'))}}">
+                    Agenda
+                </a>
+            </li>
+        </ul>
+    {% endblock %}
+{% block body %}
+    
+    <section>
+        <div class="container visible-xs">
+            <div class="row">
+                <div class="col-md-12">
+                    <section class="panel panel-default">
+                        <div class="panel-heading">
+                            Uw afspraken
+                        </div>
+                        <div class="panel-body">
+                            hier komen uw afspraken
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="container visible-lg visible-md visible-sm">
+            <div class="row">
+                <div class="col-md-12">
+                    <section id="calendar-panel" class="panel panel-default">
+                        <div class="panel-heading">
+                            Agenda
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="center-block margin10" id="preloader" src="{{ asset('preloader1.gif') }}"/>
+                                    <div class="modal fade" id="appointmentModal" role="dialog">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title"><div id="appointmentTime"></div></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="patientName" class="control-label">Naam patiënt</label>
+                                                        <div name="patientName" id="patientName"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="patientMessage" class="control-label">Reden van consultatie</label>
+                                                        <div name="patientMessage" id="patientMessage"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="appointmentLocation" class="control-label">Locatie</label>
+                                                        <div name="appointmentLocation" id="appointmentLocation"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="calendar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+
+        function calculateScrollTime(minTime, maxTime) {
+            var min = moment(minTime, 'HH:mm').format('HH:mm');
+            var max = moment(maxTime, 'HH:mm').format('HH:mm');
+            var now = moment(Date.now()).format('HH:mm');
+            if (now >= max) {
+                return min;
+            } else {
+                return now;
+            }
+        }
+
+        function loadData(url, callback) {
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'get',
+                success: function(data) {
+                    callback(data);
+                }
+            })
+        }
+
+        $(document).ready(function () {
+
+            prefs = [];
+            prefs["minHour"] = '08:00';
+            prefs["maxHour"] = '19:00';
+            prefs["slotDuration"] = '00:15';
+
+            var calendar = $('#calendar');
+            calendar.fullCalendar('getCalendar');
+            calendar.fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay'
+                },
+                firstDay: 1,
+                allDaySlot: false,
+                defaultDate: Date.now(),
+                lang: 'nl',
+                editable: false,
+                timeFormat: 'HH:mm',
+                defaultView: 'agendaDay',
+                minTime: prefs["minHour"],
+                maxTime: prefs["maxHour"],
+                scrollTime: calculateScrollTime(prefs["minHour"], prefs["maxHour"]),
+                slotDuration: prefs["slotDuration"],
+                slotLabelInterval: prefs["slotDuration"],
+                slotLabelFormat: 'HH:mm',
+                eventDurationEditable: false,
+                snapDuration: prefs["slotDuration"],
+                eventLimit: true,
+                displayEventTime: true,
+                displayEventEnd: true,
+                slotEventOverlap: false,
+                eventBackgroundColor: 'rgb(26, 36, 47)',
+                defaultTimedEventDuration: prefs["slotDuration"],
+                minDate: moment(Date.now()),
+                eventRender: function (event, element) {
+                    element.attr('data-toggle', 'modal');
+                    element.attr('data-target', '#appointmentModal');
+                    element.click(function() {
+                        $("#appointmentTime").html(moment(event.start).format('HH:mm') + " - " + moment(event.end).format('HH:mm'))
+                        $("#appointmentLocation").html(event.room);
+                        $("#patientName").html(event.patientname);
+                        $("#patientMessage").html(event.message);
+                    });
+                },
+                loading: function(bool) {
+                    if (bool) $('#preloader').show();
+                    else $('#preloader').hide();
+                }
+            });
+
+            loadAppointments({{ app.user.id }});
+
+            function loadAppointments(doctorId) {
+                loadData('http://localhost:8000/api/doctors/' + doctorId + '/appointments/closed', function (appointments) {
+                    console.log(appointments);
+                    $('#preloader').hide();
+
+                    calendar.fullCalendar('removeEvents');
+                    calendar.fullCalendar('addEventSource', appointments);
+                    calendar.fullCalendar('refetchEvents');
+                });
+            }
+
+        });
+    </script>
+{% endblock %}

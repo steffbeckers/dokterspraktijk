@@ -116,19 +116,11 @@
             var min = moment(minTime, 'HH:mm').format('HH:mm');
             var max = moment(maxTime, 'HH:mm').format('HH:mm');
             var now = moment(Date.now()).format('HH:mm');
-            console.log("min: " + min + " max: " + max + " now: " + now);
             if (now >= max) {
-                console.log("GROTER");
                 return min;
             } else {
-                console.log("KLEINER");
                 return now;
             }
-        }
-
-        function dateNowInt() {
-            var d = new Date();
-            return d.getDay();
         }
 
         function loadData(url, callback) {
@@ -140,6 +132,22 @@
                     callback(data);
                 }
             })
+        }
+
+        function postData(url, data, callback) {
+            $.ajax({
+                url: url,
+                type: 'post',
+                dataType: "json",
+                processData: false,
+                beforeSend: function (request) {
+                    request.setRequestHeader("Content-Type", "application/json");
+                },
+                data: JSON.stringify(data),
+                success: function (msg) {
+                    callback(msg);
+                }
+            });
         }
 
         $(document).ready(function () {
@@ -160,7 +168,7 @@
                     center: 'title',
                     right: 'agendaWeek,agendaDay'
                 },
-                firstDay: dateNowInt(),
+                firstDay: 1,
                 allDaySlot: false,
                 defaultDate: Date.now(),
                 lang: 'nl',
@@ -190,7 +198,7 @@
                     calEvent.backgroundColor = "rgb(24, 188, 156)";
                     calendar.fullCalendar('rerenderEvents');
                     $("input[id=appointmentId]").val(calEvent.id);
-                    $("#dateAndTime").html("<i class=\"fa fa-calendar\" /> &nbsp;" + moment(calEvent.start).format('DD MMMM YYYY') + "<br /><i class=\"fa fa-clock-o\" /> &nbsp;" + moment(calEvent.start).format('H:mm') + " - " + moment(calEvent.end).format('H:mm'));
+                    $("#dateAndTime").html("<i class=\"fa fa-calendar\" /> &nbsp;" + moment(calEvent.start).format('DD MMMM YYYY') + "<br /><i class=\"fa fa-clock-o\" /> &nbsp;" + moment(calEvent.start).format('HH:mm') + " - " + moment(calEvent.end).format('HH:mm'));
                     $("#location").html("<i class=\"fa fa-location-arrow\" /> &nbsp;" + calEvent.room);
                 },
                 loading: function(bool) {
@@ -212,29 +220,20 @@
                 loadAppointments($(this).val());
             });
 
+            function createAppointment(appointmentId, appointment) {
+                postData("http://localhost:8000/api/appointments/" + appointmentId, appointment, function (data) {
+                    window.location("localhost:8000/afspraken");
+                });
+            }
+
             $('#createAppointment').on('click', function () {
                 var appointment = null;
-
                 appointment = {
                     "patientId": $('#userId').val(),
                     "patientName": $('#name').val(),
                     "patientMessage": $('#message').val()
                 };
-
-                $.ajax({
-                    url: "http://localhost:8000/api/appointments/" + $("input[id=appointmentId]").val(),
-                    type: 'post',
-                    dataType: "json",
-                    processData: false,
-                    beforeSend: function (request) {
-                        request.setRequestHeader("Content-Type", "application/json");
-                    },
-                    data: JSON.stringify(appointment),
-                    success: function (msg) {
-
-                    }
-                });
-
+                createAppointment($("input[id=appointmentId]").val(), appointment);
                 loadAppointments(select.val())
             });
 

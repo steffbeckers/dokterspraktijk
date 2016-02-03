@@ -72,6 +72,25 @@ class AppointmentsController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getDoctorAppointmentsClosedAction($id)
+    {
+        $query = $this->getDoctrine()->getEntityManager()
+            ->createQuery('SELECT a FROM AppBundle:Appointment a JOIN AppBundle:User u WHERE a.doctorid = :docId AND a.occupied = :occupied AND a.start >= :dateNow')
+            ->setParameter('docId', $id)
+            ->setParameter('occupied', 1)
+            ->setParameter('dateNow', date("Y-m-d H:i:s"));
+
+        $appointments = $query->getResult();
+
+        if (false === $appointments) {
+            throw $this->createNotFoundException("Appointments not found.");
+        }
+
+        $view = $this->view($appointments, 200);
+        $view->setSerializationContext(SerializationContext::create()->setGroups(array('appointmentsDoctorList')));
+        return $this->handleView($view);
+    }
+
     public function getDoctorAppointmentsAction($id)
     {
         $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('doctorid' => $id));
