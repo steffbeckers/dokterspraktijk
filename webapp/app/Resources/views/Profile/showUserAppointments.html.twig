@@ -42,7 +42,9 @@
                                             Meld je aan om een afspraak te maken
                                         </a>
                                     {% else %}
-                                        U heeft momenteel {{ appointments|length }} afspraken.
+                                        U heeft momenteel {{ appointments|length }} {% if appointments|length > 1 %}afspraken.
+                                        {% else %} afspraak.
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
