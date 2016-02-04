@@ -22,7 +22,7 @@ class AppointmentController extends Controller
             $id = $this->getUser()->getId();
             $appointments = $this->getDoctrine()->getRepository('AppBundle:Appointment')->findBy(array('patientid' => $id));
 
-            //Laat 1 pagina waar 2 paginas in zitten
+            //Laad 1 pagina waar 2 paginas in zitten
 
             if ($this->isMobile()){
                 //Mobile laad een pagina waar dan de apointments ingeladen worden
@@ -41,7 +41,7 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @Route("/afspraak-appoint", name="afspraak-appoint")
+     * @Route("/afspraak-overzicht", name="afspraak-overzicht")
      */
     public function showAppointmentsAction()
     {
